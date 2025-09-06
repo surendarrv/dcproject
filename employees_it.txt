@@ -1,0 +1,29 @@
+Record 1:
+  Name: John Doe
+  Department: IT
+  Email: john.doe@company.com
+
+Record 2:
+  Name: Jane Smith
+  Department: HR
+  Email: jane.smith@company.com
+
+Record 3:
+  Name: Bob Johnson
+  Department: IT
+  Email: bob.johnson@company.com
+
+Record 4:
+  Name: Alice Brown
+  Department: Finance
+  Email: alice.brown@company.com
+
+Record 5:
+  Name: Charlie Wilson
+  Department: IT
+  Email: charlie.wilson@company.com
+
+Record 6:
+  Name: Diana Davis
+  Department: Marketing
+  Email: diana.davis@company.com

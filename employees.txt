@@ -1,0 +1,8 @@
+Employee_ID | Name | Department | Position | Salary | Status | Email | Hire_Date
+--------------------------------------------------------------------------------
+1001 | John Doe | IT | Developer | 75000 | Active | john.doe@company.com | 2020-01-15
+1002 | Jane Smith | HR | Manager | 85000 | Active | jane.smith@company.com | 2019-03-22
+1003 | Bob Johnson | IT | Senior Developer | 95000 | Inactive | bob.johnson@company.com | 2018-07-10
+1004 | Alice Brown | Finance | Analyst | 65000 | Active | alice.brown@company.com | 2021-05-03
+1005 | Charlie Wilson | IT | Team Lead | 105000 | Active | charlie.wilson@company.com | 2017-11-28
+1006 | Diana Davis | Marketing | Coordinator | 55000 | Active | diana.davis@company.com | 2022-02-14
