@@ -1,179 +1,103 @@
-# Excel to Text Converter
+# Data Conversion Dashboard
 
-A Python application that converts Excel files to text format with various filtering and formatting options.
+An AI-driven Excel to Text Converter with a modern web interface and mainframe-style output preview.
 
-## Features
+## 🚀 Features
 
-- 🔄 Convert Excel files to text format
-- 📊 Support for multiple output formats (table, list, CSV)
-- 🔍 Filter specific columns and rows
-- 📋 Get Excel file information
-- 🎯 Command-line interface for easy usage
-- ⚡ Fast processing with pandas
-- 🛡️ Error handling and validation
+- **Modern Web UI**: Beautiful gradient interface with responsive design
+- **Excel Processing**: Reads Excel files and detects MAPPING sheets automatically
+- **Dynamic Column Detection**: Finds required columns (Begin, BETA Field Name, Mapping Instructions) dynamically
+- **Mainframe Preview**: Authentic terminal-style output preview with green text on black background
+- **File Upload/Download**: Easy file upload and text file download functionality
+- **AI-Powered**: Claude-driven agentic control card generator
 
-## Installation
+## 📋 Requirements
 
-1. Install the required dependencies:
-```bash
-sudo apt update
-sudo apt install -y python3-pandas python3-openpyxl python3-xlrd
-```
-
-Or using pip (if you have a virtual environment):
-```bash
-pip install pandas openpyxl xlrd
-```
-
-## Usage
-
-### Basic Usage
-
-Convert an Excel file to text format:
-```bash
-python3 excel_to_text.py input.xlsx output.txt
-```
-
-### Advanced Usage
-
-#### Get Excel file information:
-```bash
-python3 excel_to_text.py sample_employees.xlsx --info
-```
-
-#### Specify output format:
-```bash
-# Table format (default)
-python3 excel_to_text.py input.xlsx output.txt --format table
-
-# List format
-python3 excel_to_text.py input.xlsx output.txt --format list
-
-# CSV format
-python3 excel_to_text.py input.xlsx output.txt --format csv
-```
-
-#### Filter specific columns:
-   ```bash
-python3 excel_to_text.py input.xlsx output.txt --columns "Name,Email,Department"
-```
-
-#### Specify sheet name:
-   ```bash
-python3 excel_to_text.py input.xlsx output.txt --sheet "Sheet2"
-```
-
-#### Custom delimiter for table format:
-   ```bash
-python3 excel_to_text.py input.xlsx output.txt --delimiter " || "
-   ```
-
-#### Exclude headers:
-   ```bash
-python3 excel_to_text.py input.xlsx output.txt --no-headers
-```
-
-## Command Line Options
-
-```
-positional arguments:
-  excel_file            Path to input Excel file
-  output_file           Path to output text file
-
-options:
-  -h, --help            show this help message and exit
-  --sheet SHEET, -s SHEET
-                        Sheet name to read (default: first sheet)
-  --format {table,list,csv}, -f {table,list,csv}
-                        Output format (default: table)
-  --columns COLUMNS, -c COLUMNS
-                        Comma-separated list of columns to keep
-  --delimiter DELIMITER, -d DELIMITER
-                        Delimiter for table format
-  --no-headers          Exclude column headers
-  --info, -i            Show Excel file information only
-```
-
-## Output Formats
-
-### Table Format
-```
-Employee_ID | Name | Department | Position | Salary | Status | Email | Hire_Date
---------------------------------------------------------------------------------
-1001 | John Doe | IT | Developer | 75000 | Active | john.doe@company.com | 2020-01-15
-1002 | Jane Smith | HR | Manager | 85000 | Active | jane.smith@company.com | 2019-03-22
-```
-
-### List Format
-```
-Record 1:
-  Name: John Doe
-  Department: IT
-  Email: john.doe@company.com
-
-Record 2:
-  Name: Jane Smith
-  Department: HR
-  Email: jane.smith@company.com
-```
-
-### CSV Format
-```
-"Employee_ID","Name","Department","Position","Salary","Status","Email","Hire_Date"
-"1001","John Doe","IT","Developer","75000","Active","john.doe@company.com","2020-01-15"
-"1002","Jane Smith","HR","Manager","85000","Active","jane.smith@company.com","2019-03-22"
-```
-
-## Examples
-
-1. **Convert all data to table format:**
-   ```bash
-   python3 excel_to_text.py employees.xlsx all_employees.txt
-   ```
-
-2. **Get file information:**
-   ```bash
-   python3 excel_to_text.py employees.xlsx --info
-   ```
-
-3. **Filter specific columns in list format:**
-   ```bash
-   python3 excel_to_text.py employees.xlsx contacts.txt --columns "Name,Email,Phone" --format list
-   ```
-
-4. **Convert specific sheet to CSV:**
-   ```bash
-   python3 excel_to_text.py workbook.xlsx data.csv --sheet "Data" --format csv
-   ```
-
-5. **Custom delimiter:**
-```bash
-   python3 excel_to_text.py employees.xlsx report.txt --delimiter " || "
-   ```
-
-## Error Handling
-
-The application includes comprehensive error handling:
-- ✅ File existence validation
-- ✅ Excel file format validation  
-- ✅ Sheet name validation
-- ✅ Column name validation
-- ✅ Detailed error messages and logging
-
-## Requirements
-
-- Python 3.6+
+- Python 3.7+
+- Flask
 - pandas
 - openpyxl
-- xlrd
 
-## Files
+## 🛠️ Installation
 
-- `excel_to_text.py` - Main application
-- `create_sample_excel.py` - Script to create sample Excel file for testing
-- `requirements.txt` - Python dependencies
-- `README.md` - This documentation
+1. Clone the repository:
+```bash
+git clone <your-repo-url>
+cd python-file-project
+```
 
-## License
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-This project is open source and available under the MIT License.
+3. Run the application:
+```bash
+python app.py
+```
+
+4. Open your browser and go to: `http://localhost:5000`
+
+## 📁 Project Structure
+
+```
+python-file-project/
+├── app.py                 # Flask web application
+├── converter.py           # Excel to text conversion logic
+├── templates/
+│   ├── dashboard.html     # Modern web interface
+│   └── index.html         # Alternative interface
+├── Input1.xlsx           # Sample input file
+├── input2.xlsx           # Sample input file
+├── output1.txt           # Expected output format
+├── output2.txt           # Expected output format
+├── requirements.txt      # Python dependencies
+└── README.md            # This file
+```
+
+## 🎯 How to Use
+
+1. **Select File Type**: Choose "DEMO" (currently the only option)
+2. **Upload Excel File**: Click "Select the raw file" and choose your .xlsx or .xls file
+3. **Convert**: Click "Convert File" to process the Excel file
+4. **Preview**: View the converted output in the mainframe-style preview window
+5. **Download**: Click "Download TXT" to save the output as a text file
+
+## 📊 Input Requirements
+
+Your Excel file must contain:
+- A sheet named "MAPPING" (case-insensitive)
+- Columns: "Begin", "BETA Field Name", "Mapping Instructions for Programmer"
+
+## 🔧 Technical Details
+
+- **Column Detection**: Automatically finds required columns using flexible name matching
+- **Field Name Generation**: Converts BETA field names to DEMO format (PER- → DEMO-, etc.)
+- **Number Validation**: Handles float values in Begin column (1.0 → 0001)
+- **Mapping Options**: Extracts mapping options from instructions (1. → 01, 2. → 02)
+
+## 🎨 UI Features
+
+- **Modern Design**: Purple-to-blue gradient background with clean white containers
+- **Responsive Layout**: Works on desktop and mobile devices
+- **Smooth Animations**: Hover effects and transitions
+- **Mainframe Preview**: Authentic terminal look for output display
+- **Real-time Statistics**: Shows total lines and field mappings count
+
+## 📝 Sample Files
+
+The project includes sample Excel files and their expected outputs:
+- `Input1.xlsx` → `output1.txt`
+- `input2.xlsx` → `output2.txt`
+
+## 🤖 AI Integration
+
+This application is powered by Claude AI and serves as an agentic control card generator for data transformation tasks.
+
+## 📄 License
+
+This project is part of a data conversion workflow system.
+
+## 🆘 Support
+
+For issues or questions, please check the code comments or create an issue in the repository.
