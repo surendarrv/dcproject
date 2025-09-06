@@ -1,0 +1,134 @@
+***********************************************************************
+****
+**** DATA FILE FOR LPL/CUS PERSHING DEMO TRANSLATION
+****
+***********************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+****
+***********************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99)
+****   COL 16-30     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 33-47     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 50-72     DEMO FIELD NAME
+****
+**** ****  **  ***************  ***************  *** LEVEL 1 FIELDS  **
+0000 0001  01                                    DEMO-KEY-ACCT
+0000 0051  01                                    DEMO-ACCT
+0000 0059  01                                    DEMO-B-CYMD
+0000 0067  02                                    DEMO-SEX
+0000 0068  01                                    DEMO-EMP-NAME
+0000 0098  01                                    DEMO-EMP-ADDR
+0000 0128  01                                    DEMO-EMP-CITY
+0000 0158  01                                    DEMO-EMP-STATE
+0000 0160  01                                    DEMO-EMP-ZIP-5
+0000 0165  01                                    DEMO-EMP-ZIP-4
+0000 0170  01                                    DEMO-BUS-NATURE
+0000 0171  01                                    DEMO-OCCUPATION
+0000 0172  01                                    DEMO-YEARS-EMP
+0000 0174  01                                    DEMO-S-B-CYMD
+0000 0182  01                                    DEMO-S-EMP-NAME
+0000 0212  01                                    DEMO-S-EMP-ADDR
+0000 0242  01                                    DEMO-S-EMP-CITY
+0000 0272  01                                    DEMO-S-EMP-STATE
+0000 0274  01                                    DEMO-S-EMP-ZIP-5
+0000 0279  01                                    DEMO-S-EMP-ZIP-4
+0000 0284  01                                    DEMO-S-BUS-NATURE
+0000 0285  01                                    DEMO-S-OCCUPATION
+0000 0286  01                                    DEMO-S-YEARS-EMP
+0000 0288  02                                    DEMO-S-NET-INCOME
+0000 0289  01                                    DEMO-S-BUS-PHONE
+0000 0301  02                                    DEMO-MARITAL-STATUS
+0000 0302  01                                    DEMO-HOME-OWN-RENT
+0000 0303  02                                    DEMO-DEPENDANTS
+0000 0305  01                                    DEMO-TAX-BRACKET
+0000 0307  01                                    DEMO-REFERENCES
+0000 0308  01                                    DEMO-ACCT-ACQUIRED
+0000 0309  01                                    DEMO-NET-INCOME
+0000 0310  02                                    DEMO-LIQ-NET
+0000 0311  02                                    DEMO-INVEST-EXPERIENCE-STK
+0000 0312  02                                    DEMO-INVEST-EXPERIENCE-OPT
+0000 0313  02                                    DEMO-INVEST-EXPERIENCE-MMF
+0000 0314  02                                    DEMO-INVEST-EXPERIENCE-ANN
+0000 0315  01                                    DEMO-INITIAL-TRANS
+0000 0324  01                                    DEMO-PLANNED-INVEST-AMT
+0000 0325  01                                    DEMO-NET-WORTH
+0000 0326  01                                    DEMO-CLIENT-MET
+0000 0327  01                                    DEMO-CORP-OFFICER
+0000 0328  01                                    DEMO-NASD-CLASSIFIED
+0000 0329  01                                    DEMO-EDUCATION-LEVEL
+0000 0330  01                                    DEMO-RETIRED
+0000 0331  01                                    DEMO-POLICY-OWNER
+0000 0332  01                                    DEMO-T-FIRM
+0000 0335  01                                    DEMO-T-ACCT
+0000 0366  01                                    DEMO-NOTE1
+0000 0445  01                                    DEMO-NOTE2
+0000 0524  01                                    DEMO-NOTE3
+0000 0603  01                                    DEMO-NOTE4
+0000 0682  01                                    DEMO-NOTE5
+0000 0761  01                                    DEMO-NOTE6
+0000 0840  01                                    DEMO-BDATE-ESTIMATED
+0000 0841  02                                    DEMO-E-MAIL-ADDRESS
+0000 0901  01                                    DEMO-OPT-OBJ
+0000 0902  01                                    DEMO-OPT-TRD-DATE
+0000 0910  01                                    DEMO-OPT-PRO-DATE
+0000 0918  02                                    DEMO-E-MAIL-ADDRESS2
+0000 0978  02                                    DEMO-RISK-TOLERANCE
+0000 0979  02                                    DEMO-LIQUID-NET-WORTH
+0000 0980  01                                    DEMO-SEC-OBJECTIVE1
+0000 0981  01                                    DEMO-SEC-OBJECTIVE2
+0000 0982  01                                    DEMO-SEC-OBJECTIVE3
+0000 0983  01                                    DEMO-SEC-OBJECTIVE4
+0000 0984  01                                    DEMO-SHOW-DISCOUNT
+0000 0985  01                                    DEMO-CONF-TRAILER
+0000 1039  02                                    DEMO-CONTROL-CUSIP1
+0000 1048  01                                    DEMO-CONTROL-CUSIP2
+0000 1057  01                                    DEMO-CONTROL-CUSIP3
+0000 1066  01                                    DEMO-NA-COMM-OVERRIDE
+0000 1067  01                                    DEMO-PERF-RPT
+0000 1068  02                                    DEMO-INVEST-EXPERIENCE-BND
+0000 1077  01                                    DEMO-DAML-SYNC-SWITCH
+0000 1078  01                                    DEMO-INV-TIME-HORIZON-1
+0000 1079  01                                    DEMO-INV-TIME-HORIZON-2
+0000 1080  01                                    DEMO-LIQ-NEEDS-IND
+0000 1081  02                                    DEMO-LIQ-NEEDS-DOL-PCT-1
+0000 1092  01  A                                 DEMO-LIQ-NEEDS-TIMEFRM-1
+0000 1093  01                                    DEMO-LIQ-NEEDS-DOL-PCT-2
+0000 1104  01                                    DEMO-LIQ-NEEDS-TIMEFRM-2
+0000 1105  01                                    DEMO-LIQ-NEEDS-DOL-PCT-3
+0000 1116  01                                    DEMO-LIQ-NEEDS-TIMEFRM-3
+0000 1117  01                                    DEMO-LIQ-NEEDS-UPDATE-WHO
+0000 1120  01                                    DEMO-LIQ-NEEDS-UPDATE-TERM
+0000 1124  01                                    DEMO-LIQ-NEEDS-UPDATE-CYMD
+0000 1132  01  C                                 DEMO-DB-UPDATE-IND
+0000 1133  01                                    DEMO-DEPENDANTS-IND-X
+0000 1134  01                                    DEMO-STATE-PLAN-CODE-X
+0000 1136  01                                    DEMO-ACCOUNT-PURPOSE
+0000 1141  01                                    DEMO-LOST-PAYEE
+************************************************************************
+****
+**** DEMO-S-NET-INCOME 288A (TABLE A #1-TOP ON MAPPING)
+****
+****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (LOW RANGE)
+****   COL 024-038 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (HIGH RANGE)
+****   COL 041-041 = DEMO-NET-INCOME
+****   COL 044-044 = WARNING REPORT (Y/N)
+****
+****  ***************  ***************  *  *
+288A  000000000000000  000000000000000     N
+288A                                       N
+288A  000000000000001  000000000024999  A
+288A  000000000025000  000000000049999  B
+288A  000000000050000  000000000099999  C
+288A  000000000100000  000000000249999  D
+288A  000000000250000  000000000499999  E
+288A  000000000500000  000000000749999  F
+288A  000000000750000  000000000999999  G
+288A  000000001000000  099999999999999  H
+288A  100000000000000  100000000000000     N
+288A  999999999999999  999999999999999     N
+****

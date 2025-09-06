@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Data Conversion Dashboard - v2.0</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            margin: 10px 0 0 0;
+            font-size: 16px;
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section:hover {
+            border-color: #667eea;
+            background: #f0f2ff;
+        }
+        
+        .file-type {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .radio-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #667eea;
+            border: none;
+            outline: none;
+        }
+        
+        .radio-label {
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .file-input {
+            margin: 20px 0;
+        }
+        
+        .file-input label {
+            display: block;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .upload-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .preview-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .preview-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .preview-title {
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .download-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        .preview-content {
+            background-color: #000;
+            color: #00ff00;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.1;
+            white-space: pre-wrap;
+        }
+        
+        .message {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .message.success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-style: italic;
+            font-size: 16px;
+        }
+        
+        /* Scrollbar styling for mainframe look */
+        .preview-content::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        .preview-content::-webkit-scrollbar-track {
+            background: #000;
+            border: 1px solid #00ff00;
+        }
+        
+        .preview-content::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border: 1px solid #000;
+        }
+        
+        .preview-content::-webkit-scrollbar-thumb:hover {
+            background: #00cc00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Data Conversion Dashboard</h1>
+            <p>AI- Claude driven Agentic Control Card Generator - Transform your Excel files into formatted text output</p>
+        </div>
+        
+        <div class="upload-section">
+            <div class="file-type">
+                <div class="radio-group">
+                    <input type="radio" id="demo" name="fileType" value="DEMO" checked>
+                    <label for="demo" class="radio-label">DEMO</label>
+                </div>
+            </div>
+            
+            <div class="file-input">
+                <label for="fileInput">
+                    Select the raw file:
+                </label>
+                <input type="file" id="fileInput" accept=".xlsx,.xls">
+            </div>
+            
+            <button class="upload-btn" id="uploadBtn" onclick="uploadFile()" disabled>
+                Convert File
+            </button>
+        </div>
+        
+        <div class="preview-section" id="previewSection">
+            <div class="preview-header">
+                <div class="preview-title">Output Preview</div>
+                <button class="download-btn" id="downloadBtn" onclick="downloadFile()">
+                    Download TXT
+                </button>
+            </div>
+            
+            <div class="stats" id="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLines">0</div>
+                    <div class="stat-label">Total Lines</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="fieldMappings">0</div>
+                    <div class="stat-label">Field Mappings</div>
+                </div>
+            </div>
+            
+            <div class="preview-content" id="previewContent"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentContent = '';
+        let currentFilename = '';
+        
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const previewSection = document.getElementById('previewSection');
+        const previewContent = document.getElementById('previewContent');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        fileInput.addEventListener('change', function() {
+            uploadBtn.disabled = !this.files.length;
+        });
+
+        function uploadFile() {
+            const file = fileInput.files[0];
+            if (!file) {
+                showError('Please select a file first');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Converting...';
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+
+                if (data.success) {
+                    showPreview(data.preview, data.filename, data.message);
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+                showError('Upload failed: ' + error.message);
+            });
+        }
+
+        function showPreview(content, filename, message) {
+            currentContent = content;
+            currentFilename = filename;
+            
+            previewContent.textContent = content;
+            previewSection.style.display = 'block';
+            
+            // Update stats
+            const lines = content.split('\n');
+            const fieldMappings = lines.filter(line => line.startsWith('0000 ')).length;
+            
+            document.getElementById('totalLines').textContent = lines.length;
+            document.getElementById('fieldMappings').textContent = fieldMappings;
+            
+            // Show success message
+            showMessage(message, 'success');
+        }
+
+        function showError(message) {
+            showMessage(message, 'error');
+        }
+
+        function showMessage(message, type) {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+
+            // Create new message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            // Insert after upload section
+            const uploadSection = document.querySelector('.upload-section');
+            uploadSection.insertAdjacentElement('afterend', messageDiv);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        function downloadFile() {
+            if (!currentContent) {
+                showError('No content to download');
+                return;
+            }
+
+            fetch('/download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: currentContent,
+                    filename: currentFilename
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error('Download failed');
+                }
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = currentFilename.replace('.xlsx', '.txt').replace('.xls', '.txt');
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => {
+                showError('Download failed: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>

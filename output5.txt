@@ -1,0 +1,159 @@
+************************************************************************
+****
+**** DATA FILE FOR LPL/PWI IRAS PERSHING CONVERSION
+****
+************************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+****
+************************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99)
+****   COL 16-30     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 33-47     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 50-50     WARNING INDICATOR(IF APPLICABLE)
+****   COL 53-72     DEINA    FIELD NAME
+****
+**** ****  **  ***************  ***************  *  *** LEVEL 1 FIELDS
+0000 0001  01                                       DE-IRAS-KEY-AREA
+0000 0051  01                                       IRAS-ACCT-NO
+0000 0059  01  IR                                   IRAS-IRA-TYPE
+0000 0064  01  P                                    IRAS-PRIMARY-SECONDA
+0000 0065  01                                       IRAS-FEE-SCHEDULE
+0000 0066  01  P                                    IRAS-FEE-STATUS
+0000 0067  01  19111111                             IRAS-BIRTH-CYMD
+0000 0075  01                                       IRAS-IRA-UPDATE-CYMD
+0000 0083  01                                       IRAS-XREF-ACCT
+0000 0091  01                                       IRAS-IRANOTE-1
+0000 0131  01                                       IRAS-IRANOTE-2
+0000 0171  01                                       IRAS-IRANOTE-3
+0000 0211  01                                       IRAS-IRA-MKTVALUE-P-
+0000 0213  01                                       IRAS-IRA-MKTVALUE-P-
+0000 0224  01                                       IRAS-UPDATE-CYMD
+0000 0232  01  EDP                                  IRAS-UPDATE-WHO
+0000 0235  01  CONV                                 IRAS-UPDATE-TERM
+0000 0239  01                                       IRAS-FIRM-PRODUCT-CD
+0000 0244  01  N                                    IRAS-POOL-INDICATOR
+0000 0245  02                                       IRAS-TERMINATION
+0000 0246  01                                       IRAS-IRA-MKTVALUE-C-
+0000 0248  01                                       IRAS-IRA-MKTVALUE-C
+0000 0259  01  001                                  IRAS-FEE-SCHEDULE-NE
+0000 0262  01                                       IRAS-CORRECTION-1099
+0000 0263  01                                       IRAS-CORRECTION-5498
+0000 0264  02                                       IRAS-DECEASED-IND
+0000 0265  02                                       IRAS-DECEASED-CYMD
+0000 0273  01                                       IRAS-BYPASS-1099R-IN
+0000 0274  01                                       IRAS-BYPASS-5498-IND
+0000 0275  01                                       IRAS-BYPASS-FEE-DISC
+0000 0276  01                                       IRAS-BDATE-ESTIMATED
+0000 0277  01  N                                    IRAS-ISUM-OVERRIDE-S
+0000 0278  01                                       IRAS-ACCT-CLOSE-CYMD
+0000 0286  01  N                                    IRAS-BYPASS-FEE-SW
+0000 0287  01                                       IRAS-PARTICIPANT-SSN
+0000 0296  01  N                                    IRAS-BYPASS-WARNING-
+0000 0297  02                                       IRAS-DISTRIBUTION-SO
+0000 0302  01                                       IRAS-FED-WITHHOLD-FI
+0000 0303  03                                       IRAS-FED-WITHHOLD-PE
+0000 0308  01                                       IRAS-STATE-WITHHOLD-
+0000 0309  03                                       IRAS-STATE-WITHHOLD-
+0000 0314  01                                       IRAS-SUB-NO
+0000 0317  01  Y                                    IRAS-FED-WITHHOLD-IN
+0000 0318  01  Y                                    IRAS-STATE-WITHHOLD-
+0000 0319  01                                       IRAS-FEE-SCHED-CHANG
+0000 0320  01                                       IRAS-FIRM-PRODUCT-CD
+0000 0420  01                                       IRAS-CORRECTION-FMV
+0000 0421  01                                       IRAS-BYPASS-FMV-IND
+0000 0422  01                                       IRAS-CONT-DIST-INFO-
+0000 0423  01                                       IRAS-CONTRIB-C-YEAR-
+0000 0425  01                                       IRAS-CONTRIB-C-YEAR
+0000 0436  01                                       IRAS-CONTRIB-P-YEAR-
+0000 0438  01                                       IRAS-CONTRIB-P-YEAR
+0000 0449  01                                       IRAS-DISTRIB-C-YEAR-
+0000 0451  01                                       IRAS-DISTRIB-C-YEAR
+0000 0462  01                                       IRAS-DISTRIB-P-YEAR-
+0000 0464  01                                       IRAS-DISTRIB-P-YEAR
+****
+************************************************************************
+**** RECORD TYPE TYPE - IRAS-BIRTH-CYMD
+****
+****   COL 006-013 = IRAS-BIRTH-CYMD
+****
+**** ********
+067A 00010101
+067A 19010102
+****
+************************************************************************
+**** RECORD TYPE TYPE - IRA-TYPE AND FEE-SCHEDULE-NEW
+****   ( EXPECTING MULTIPLE CARDS )
+****
+****   COL 006-006 = PER-RETI-PLAN-TYPE
+****   COL 009-009 = PER-RETI-ACCT-TYPE
+****   COL 012-013 = IRAS-IRA-TYPE
+****   COL 016-018 = IRAS-FEE-SCHEDULE-NEW
+****   COL 021-021 = WARNING REPORT
+****
+**** *  *  **  ***  *
+TBLA       IR  001
+TBLA 1  1  IR  001
+TBLA 1  2  IR  001
+TBLA 1  3  RO  001
+TBLA 1  4  BN  001
+TBLA 1  6  IR  001
+TBLA 1  8  BN  001
+TBLA 1  9  BN  001
+TBLA 1  A  BN  001
+TBLA 1  B  CK  003
+TBLA 1  C  BN  001
+TBLA 2  1  BS  001
+TBLA 2  5  BS  001
+TBLA 2  6  BS  001
+TBLA 2  8  BN  001
+TBLA A  1  BR  001
+TBLA H  1  ZH  003
+TBLA J  1  IS  001
+TBLA J  5  IS  001
+TBLA L  1  XI  001
+TBLA L  5  XI  001
+TBLA R  1  RH  001
+TBLA R  2  RH  001
+TBLA R  3  RH  001
+TBLA R  4  RH  001
+TBLA R  6  RH  001
+TBLA R  8  RB  001
+TBLA R  9  RB  001
+TBLA R  A  RB  001
+TBLA R  C  RB  001
+TBLA S  1  ED  001
+TBLA T  1  RH  001
+****
+************************************************************************
+**** RECORD DISTRIBUTION SOURCE
+****
+**** IF INA-IRA-TYPE-IND ON THIS TABLE
+****    APPLY THE IRAS-DISTRIBUTION-SOURCE
+****
+****   COL 006-007 = IRAS-IRA-TYPE
+****   COL 011-014 = IRAS-DISTRIBUTION-SOURCE - OVER & EQUAL 59.5
+****   COL 017-020 = IRAS-DISTRIBUTION-SOURCE - UNDER 59.5
+****
+**** **   ****  ****
+297A BN   DEC2  DEC2
+297A BR   REG   PREM
+297A BS   REG   PREM
+297A CK   REG   PREM
+297A CP   REG   PREM
+297A CS   REG   PREM
+297A ED   EDU2  EDU2
+297A IR   REG   PREM
+297A IS   REG   PREM
+297A RB   RHE2  RHE2
+297A RH   RHE2  RTH2
+297A RO   REG   PREM
+297A SS   REG   PREM
+297A XI   REG   SMP2
+297A ZH   REG   PREM
+****
+************************************************************************
