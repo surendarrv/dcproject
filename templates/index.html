@@ -6,7 +6,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Data Conversion Dashboard - v2.0</title>
+    <title>Data Conversion Dashboard</title>
     <style>
         * {
             box-sizing: border-box;
@@ -228,6 +228,12 @@
             white-space: pre-wrap;
         }
         
+        .preview-content .table-reference {
+            color: #ff0000 !important;
+            font-weight: bold;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
+        
         .message {
             padding: 20px;
             margin: 20px 0;
@@ -285,8 +291,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Data Conversion Dashboard</h1>
-            <p>AI- Claude driven Agentic Control Card Generator - Transform your Excel files into formatted text output</p>
+        <h1>Data Conversion Dashboard</h1>
+        <p>AI- Claude driven Agentic Control Card Generator - Transform your Excel files into formatted text output</p>
         </div>
         
         <div class="upload-section">
@@ -326,6 +332,10 @@
                     <div class="stat-number" id="fieldMappings">0</div>
                     <div class="stat-label">Field Mappings</div>
                 </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="tableReferredFields">0</div>
+                    <div class="stat-label">Table Referred Fields</div>
+                </div>
             </div>
             
             <div class="preview-content" id="previewContent"></div>
@@ -335,6 +345,30 @@
     <script>
         let currentContent = '';
         let currentFilename = '';
+        
+        // Clear previous state on page load
+        function clearPreviousState() {
+            currentContent = '';
+            currentFilename = '';
+            document.getElementById('previewContent').innerHTML = '';
+            document.getElementById('totalLines').textContent = '0';
+            document.getElementById('fieldMappings').textContent = '0';
+            document.getElementById('tableReferredFields').textContent = '0';
+            
+            // Hide preview section
+            const previewSection = document.getElementById('previewSection');
+            if (previewSection) {
+                previewSection.style.display = 'none';
+            }
+            
+            // Remove any existing messages
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+        }
+        
+        // Clear state when page loads
+        document.addEventListener('DOMContentLoaded', clearPreviousState);
+        
         
         const fileInput = document.getElementById('fileInput');
         const uploadBtn = document.getElementById('uploadBtn');
@@ -385,15 +419,30 @@
             currentContent = content;
             currentFilename = filename;
             
-            previewContent.textContent = content;
+            // Process content for red highlighting
+            const lines = content.split('\n');
+            let processedContent = '';
+            let tableReferenceCount = 0;
+            
+            for (let line of lines) {
+                if (line.includes('# table ')) {
+                    // This line has a table reference - highlight in bright red
+                    processedContent += `<span class="table-reference">${line}</span>\n`;
+                    tableReferenceCount++;
+                } else {
+                    processedContent += line + '\n';
+                }
+            }
+            
+            previewContent.innerHTML = processedContent;
             previewSection.style.display = 'block';
             
             // Update stats
-            const lines = content.split('\n');
             const fieldMappings = lines.filter(line => line.startsWith('0000 ')).length;
             
             document.getElementById('totalLines').textContent = lines.length;
             document.getElementById('fieldMappings').textContent = fieldMappings;
+            document.getElementById('tableReferredFields').textContent = tableReferenceCount;
             
             // Show success message
             showMessage(message, 'success');
