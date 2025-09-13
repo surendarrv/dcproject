@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mainframe COBOL Code Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #444;
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #00ff00;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        
+        .header p {
+            color: #888;
+            margin: 10px 0 0 0;
+            font-size: 16px;
+        }
+        
+        .back-btn {
+            background: #444;
+            color: #e0e0e0;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn:hover {
+            background: #555;
+            color: #00ff00;
+        }
+        
+        .cobol-section {
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .cobol-header {
+            background: #333;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+        }
+        
+        .cobol-title {
+            color: #00ff00;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mainframe-icon {
+            font-size: 20px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .copy-btn, .download-btn {
+            background: none;
+            color: #888;
+            border: 1px solid #444;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .copy-btn:hover, .download-btn:hover {
+            background: #444;
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+        
+        .cobol-content {
+            background-color: #000;
+            color: #00ff00;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+        }
+        
+        .cobol-content.editable {
+            background-color: #0a0a0a;
+            border: 2px solid #ffc107;
+            border-radius: 5px;
+        }
+        
+        .cobol-content textarea {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #00ff00;
+            border: none;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            resize: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 0;
+            padding: 20px;
+            background: #333;
+            border-bottom: 1px solid #444;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 20px;
+            font-weight: 600;
+            color: #00ff00;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #888;
+            font-weight: 500;
+        }
+        
+        .message {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .message.success {
+            background: linear-gradient(135deg, #1a4d1a, #2d5a2d);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+        
+        .message.error {
+            background: linear-gradient(135deg, #4d1a1a, #5a2d2d);
+            color: #ff4444;
+            border: 1px solid #ff4444;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .loading {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            font-size: 14px;
+            padding: 40px;
+        }
+        
+        /* Scrollbar styling for mainframe look */
+        .cobol-content::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        .cobol-content::-webkit-scrollbar-track {
+            background: #000;
+            border: 1px solid #00ff00;
+        }
+        
+        .cobol-content::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border: 1px solid #000;
+        }
+        
+        .cobol-content::-webkit-scrollbar-thumb:hover {
+            background: #00cc00;
+        }
+        
+        .no-content {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 60px 20px;
+            background: #1a1a1a;
+            border: 2px dashed #444;
+            border-radius: 8px;
+        }
+        
+        .no-content .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ Mainframe COBOL Code Generator</h1>
+            <p>AI-Generated COBOL Control Card Processor</p>
+        </div>
+        
+        <button class="back-btn" onclick="goBack()">
+            ← Back to Dashboard
+        </button>
+        
+        <div class="cobol-section" id="cobolSection">
+            <div class="cobol-header">
+                <div class="cobol-title">
+                    <span class="mainframe-icon">🖥️</span>
+                    Generated COBOL Program
+                </div>
+                <div class="header-buttons">
+                    <button class="copy-btn" id="copyBtn" onclick="copyCode()" title="Copy to clipboard">
+                        📋 Copy Code
+                    </button>
+                    <button class="download-btn" id="downloadBtn" onclick="downloadCode()" title="Download COBOL file">
+                        💾 Download
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats" id="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLines">0</div>
+                    <div class="stat-label">Total Lines</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="fieldMappings">0</div>
+                    <div class="stat-label">Field Mappings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="tableReferences">0</div>
+                    <div class="stat-label">Table References</div>
+                </div>
+            </div>
+            
+            <div class="cobol-content" id="cobolContent">
+                <div class="no-content">
+                    <div class="icon">🖥️</div>
+                    <h3>No COBOL Code Generated Yet</h3>
+                    <p>Please go back to the dashboard and generate a control card first, then return here to view the COBOL code.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCobolCode = '';
+        let currentFilename = 'CONTROL-CARD-PROCESSOR.cbl';
+        
+        // Check if we have control card data from the previous page
+        function checkForControlCardData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hasData = urlParams.get('data');
+            
+            if (hasData === 'true') {
+                // Try to get data from sessionStorage
+                const controlCardData = sessionStorage.getItem('controlCardData');
+                if (controlCardData) {
+                    generateCobolCode(controlCardData);
+                }
+            }
+        }
+        
+        function generateCobolCode(controlCardContent) {
+            if (!controlCardContent) {
+                showMessage('No control card data available', 'error');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('cobolContent').innerHTML = '<div class="loading">🖥️ Generating COBOL code...</div>';
+            
+            fetch('/generate-cobol', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: controlCardContent
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showCobolCode(data.cobol_code);
+                } else {
+                    showMessage('Error generating COBOL code: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                showMessage('Failed to generate COBOL code: ' + error.message, 'error');
+            });
+        }
+        
+        function showCobolCode(cobolCode) {
+            currentCobolCode = cobolCode;
+            
+            // Update content
+            document.getElementById('cobolContent').innerHTML = cobolCode;
+            
+            // Update stats
+            const lines = cobolCode.split('\n');
+            const fieldMappings = lines.filter(line => line.includes('FIELD MAPPING')).length;
+            const tableReferences = lines.filter(line => line.includes('TABLE REFERENCE')).length;
+            
+            document.getElementById('totalLines').textContent = lines.length;
+            document.getElementById('fieldMappings').textContent = fieldMappings;
+            document.getElementById('tableReferences').textContent = tableReferences;
+            
+            showMessage('✅ COBOL code generated successfully!', 'success');
+        }
+        
+        function copyCode() {
+            if (!currentCobolCode) {
+                showMessage('No code to copy', 'error');
+                return;
+            }
+            
+            navigator.clipboard.writeText(currentCobolCode).then(() => {
+                showMessage('📋 COBOL code copied to clipboard!', 'success');
+            }).catch(err => {
+                showMessage('Failed to copy code: ' + err.message, 'error');
+            });
+        }
+        
+        function downloadCode() {
+            if (!currentCobolCode) {
+                showMessage('No code to download', 'error');
+                return;
+            }
+            
+            const blob = new Blob([currentCobolCode], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFilename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            showMessage('💾 COBOL file downloaded!', 'success');
+        }
+        
+        function goBack() {
+            window.location.href = '/';
+        }
+        
+        function showMessage(message, type) {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.message');
+            existingMessages.forEach(msg => msg.remove());
+
+            // Create new message
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            // Insert after header
+            const header = document.querySelector('.header');
+            header.insertAdjacentElement('afterend', messageDiv);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkForControlCardData();
+        });
+    </script>
+</body>
+</html>

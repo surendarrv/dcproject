@@ -14,7 +14,7 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8f9fa;
             color: #333;
             margin: 0;
             padding: 20px;
@@ -24,11 +24,11 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
+            background: #ffffff;
+            border-radius: 8px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
         }
         
         .header {
@@ -41,12 +41,8 @@
         .header h1 {
             color: #2c3e50;
             margin: 0;
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 28px;
+            font-weight: 600;
         }
         
         .header p {
@@ -56,25 +52,26 @@
         }
         
         .upload-section {
-            background: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 24px;
+            margin-bottom: 24px;
             transition: all 0.3s ease;
         }
         
         .upload-section:hover {
-            border-color: #667eea;
-            background: #f0f2ff;
+            border-color: #6c757d;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .file-type {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 10px;
-            color: white;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            color: #333;
+            border: 1px solid #e9ecef;
         }
         
         .radio-group {
@@ -84,17 +81,17 @@
         }
         
         input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #667eea;
+            width: 16px;
+            height: 16px;
+            accent-color: #495057;
             border: none;
             outline: none;
         }
         
         .radio-label {
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
         }
         
         .file-input {
@@ -122,26 +119,28 @@
         
         input[type="file"]:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #495057;
+            box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.1);
         }
         
         .upload-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: #495057;
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .upload-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background: #343a40;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .upload-btn:disabled {
@@ -154,40 +153,67 @@
         .preview-section {
             display: none;
             background: white;
-            border-radius: 15px;
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
         }
         
         .preview-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            padding: 20px;
+            background: #f8f9fa;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid #e9ecef;
         }
         
         .preview-title {
-            color: white;
+            color: #2c3e50;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
         }
         
-        .download-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .download-btn, .edit-btn, .confirm-btn, .cancel-btn, .cobol-btn {
+            background: none;
+            color: #495057;
+            border: none;
+            padding: 8px;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 400;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
         }
         
-        .download-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+        .download-btn:hover, .edit-btn:hover, .confirm-btn:hover, .cancel-btn:hover, .cobol-btn:hover {
+            background: #e9ecef;
+            color: #2c3e50;
+        }
+        
+        .cobol-btn:hover {
+            color: #00ff00;
+            background: #1a1a1a;
+        }
+        
+        .edit-btn:hover {
+            color: #f97316;
+        }
+        
+        .confirm-btn:hover {
+            color: #28a745;
+        }
+        
+        .cancel-btn:hover {
+            color: #dc3545;
         }
         
         .stats {
@@ -204,9 +230,9 @@
         }
         
         .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: #667eea;
+            font-size: 20px;
+            font-weight: 600;
+            color: #495057;
             margin-bottom: 5px;
         }
         
@@ -228,10 +254,35 @@
             white-space: pre-wrap;
         }
         
+        .preview-content.editable {
+            background-color: #1a1a1a;
+            border: 2px solid #ffc107;
+            border-radius: 5px;
+        }
+        
+        .preview-content textarea {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #00ff00;
+            border: none;
+            outline: none;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.1;
+            resize: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .preview-content textarea::selection {
+            background-color: rgba(255, 0, 0, 0.3);
+            color: #ff0000;
+        }
+        
         .preview-content .table-reference {
             color: #ff0000 !important;
-            font-weight: bold;
-            background-color: rgba(255, 0, 0, 0.1);
+            font-weight: normal;
         }
         
         .message {
@@ -263,9 +314,9 @@
         
         .loading {
             text-align: center;
-            color: #667eea;
+            color: #495057;
             font-style: italic;
-            font-size: 16px;
+            font-size: 14px;
         }
         
         /* Scrollbar styling for mainframe look */
@@ -292,14 +343,26 @@
     <div class="container">
         <div class="header">
         <h1>Data Conversion Dashboard</h1>
-        <p>AI- Claude driven Agentic Control Card Generator - Transform your Excel files into formatted text output</p>
+        <p>AI-Claude driven Agentic Control Card Generator</p>
         </div>
         
         <div class="upload-section">
             <div class="file-type">
                 <div class="radio-group">
-                    <input type="radio" id="demo" name="fileType" value="DEMO" checked>
+                    <input type="radio" id="demo" name="fileType" value="DEMO/IRAS/DIST-normal" checked>
                     <label for="demo" class="radio-label">DEMO</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="dist" name="fileType" value="DIST">
+                    <label for="dist" class="radio-label">DIST</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="irasVariable" name="fileType" value="IRAS_WITH_VARIABLE">
+                    <label for="irasVariable" class="radio-label">IRAS</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="xyza" name="fileType" value="XYZA">
+                    <label for="xyza" class="radio-label">XYZA</label>
                 </div>
             </div>
             
@@ -311,16 +374,30 @@
             </div>
             
             <button class="upload-btn" id="uploadBtn" onclick="uploadFile()" disabled>
-                Convert File
+                🔄 Convert
             </button>
         </div>
         
         <div class="preview-section" id="previewSection">
             <div class="preview-header">
                 <div class="preview-title">Output Preview</div>
-                <button class="download-btn" id="downloadBtn" onclick="downloadFile()">
-                    Download TXT
-                </button>
+                <div class="header-buttons">
+                    <button class="edit-btn" id="editBtn" onclick="enableEdit()" style="display: none;" title="Edit content">
+                        ✎
+                    </button>
+                    <button class="confirm-btn" id="confirmBtn" onclick="confirmEdit()" style="display: none;" title="Confirm changes">
+                        ✓
+                    </button>
+                    <button class="cancel-btn" id="cancelBtn" onclick="cancelEdit()" style="display: none;" title="Cancel changes">
+                        ✕
+                    </button>
+                    <button class="cobol-btn" id="cobolBtn" onclick="generateCobolCode()" style="display: none;" title="Generate Mainframe COBOL Code">
+                        🖥️
+                    </button>
+                    <button class="download-btn" id="downloadBtn" onclick="downloadFile()" title="Download file">
+                        ⬇
+                    </button>
+                </div>
             </div>
             
             <div class="stats" id="stats">
@@ -345,6 +422,8 @@
     <script>
         let currentContent = '';
         let currentFilename = '';
+        let originalContent = '';
+        let isEditMode = false;
         
         // Clear previous state on page load
         function clearPreviousState() {
@@ -377,18 +456,26 @@
         const downloadBtn = document.getElementById('downloadBtn');
 
         fileInput.addEventListener('change', function() {
+            console.log('File selected:', this.files.length);
             uploadBtn.disabled = !this.files.length;
+            console.log('Upload button disabled:', uploadBtn.disabled);
         });
 
         function uploadFile() {
+            console.log('uploadFile called');
             const file = fileInput.files[0];
+            console.log('Selected file:', file);
             if (!file) {
                 showError('Please select a file first');
                 return;
             }
 
+            // Get selected mode
+            const selectedMode = document.querySelector('input[name="fileType"]:checked').value;
+
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('mode', selectedMode);
 
             uploadBtn.disabled = true;
             uploadBtn.textContent = 'Converting...';
@@ -404,6 +491,9 @@
 
                 if (data.success) {
                     showPreview(data.preview, data.filename, data.message);
+                } else if (data.prefix_detected) {
+                    // Show prefix confirmation dialog
+                    showPrefixConfirmation(data);
                 } else {
                     showError(data.error);
                 }
@@ -415,9 +505,125 @@
             });
         }
 
+        // Global variable to store temp path for prefix conversion
+        let currentTempPath = null;
+
+        function showPrefixConfirmation(data) {
+            const prefix = data.prefix;
+            const columnName = data.column_name;
+            currentTempPath = data.temp_path;
+            currentFilename = data.filename;
+
+            // Create confirmation dialog
+            const dialog = document.createElement('div');
+            dialog.className = 'prefix-dialog';
+            dialog.innerHTML = `
+                <div class="prefix-dialog-content">
+                    <h3>🔍 Prefix Detected</h3>
+                    <p>I detected a prefix <strong>"${prefix}"</strong> in the column header:</p>
+                    <p><code>"${columnName}"</code></p>
+                    <p>Would you like to apply this prefix to all field names in the output?</p>
+                    <div class="prefix-options">
+                        <button class="btn btn-primary" onclick="convertWithPrefix(true)">
+                            ✅ Yes, apply "${prefix}-" prefix
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertWithPrefix(false)">
+                            ❌ No, keep field names as-is
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add styles for the dialog
+            dialog.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            const content = dialog.querySelector('.prefix-dialog-content');
+            content.style.cssText = `
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                max-width: 500px;
+                text-align: center;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            `;
+            
+            const options = dialog.querySelector('.prefix-options');
+            options.style.cssText = `
+                margin-top: 20px;
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            `;
+            
+            document.body.appendChild(dialog);
+        }
+        
+        function convertWithPrefix(applyPrefix) {
+            // Remove the dialog
+            const dialog = document.querySelector('.prefix-dialog');
+            if (dialog) {
+                dialog.remove();
+            }
+            
+            // Check if we have the temp path
+            if (!currentTempPath) {
+                showError('File path not found. Please try uploading again.');
+                return;
+            }
+            
+            // Show loading
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Converting...';
+            
+            // Get selected mode
+            const selectedMode = document.querySelector('input[name="fileType"]:checked').value;
+            
+            fetch('/convert_with_prefix', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    temp_path: currentTempPath,
+                    apply_prefix: applyPrefix,
+                    mode: selectedMode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+
+                if (data.success) {
+                    showPreview(data.preview, currentFilename, data.message);
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+                showError('Conversion failed: ' + error.message);
+            });
+        }
+
         function showPreview(content, filename, message) {
             currentContent = content;
+            originalContent = content;
             currentFilename = filename;
+            isEditMode = false;
             
             // Process content for red highlighting
             const lines = content.split('\n');
@@ -425,9 +631,11 @@
             let tableReferenceCount = 0;
             
             for (let line of lines) {
-                if (line.includes('# table ')) {
+                if (line.includes('<!-- TABLE_REF -->')) {
                     // This line has a table reference - highlight in bright red
-                    processedContent += `<span class="table-reference">${line}</span>\n`;
+                    // Remove the marker from display but keep the styling
+                    const cleanLine = line.replace(' <!-- TABLE_REF -->', '');
+                    processedContent += `<span class="table-reference">${cleanLine}</span>\n`;
                     tableReferenceCount++;
                 } else {
                     processedContent += line + '\n';
@@ -435,6 +643,7 @@
             }
             
             previewContent.innerHTML = processedContent;
+            previewContent.className = 'preview-content';
             previewSection.style.display = 'block';
             
             // Update stats
@@ -443,6 +652,12 @@
             document.getElementById('totalLines').textContent = lines.length;
             document.getElementById('fieldMappings').textContent = fieldMappings;
             document.getElementById('tableReferredFields').textContent = tableReferenceCount;
+            
+            // Show edit and COBOL buttons
+            document.getElementById('editBtn').style.display = 'inline-block';
+            document.getElementById('cobolBtn').style.display = 'inline-block';
+            document.getElementById('confirmBtn').style.display = 'none';
+            document.getElementById('cancelBtn').style.display = 'none';
             
             // Show success message
             showMessage(message, 'success');
@@ -470,6 +685,114 @@
             setTimeout(() => {
                 messageDiv.remove();
             }, 5000);
+        }
+
+        function enableEdit() {
+            isEditMode = true;
+            
+            // Create textarea with current content
+            const textarea = document.createElement('textarea');
+            textarea.value = currentContent;
+            textarea.style.height = '500px';
+            textarea.style.minHeight = '500px';
+            
+            // Replace content with textarea
+            previewContent.innerHTML = '';
+            previewContent.appendChild(textarea);
+            previewContent.className = 'preview-content editable';
+            
+            // Update button visibility
+            document.getElementById('editBtn').style.display = 'none';
+            document.getElementById('cobolBtn').style.display = 'none';
+            document.getElementById('confirmBtn').style.display = 'inline-block';
+            document.getElementById('cancelBtn').style.display = 'inline-block';
+            
+            // Focus on textarea
+            textarea.focus();
+        }
+        
+        function confirmEdit() {
+            const textarea = previewContent.querySelector('textarea');
+            if (textarea) {
+                currentContent = textarea.value;
+                
+                // Process content for red highlighting
+                const lines = currentContent.split('\n');
+                let processedContent = '';
+                let tableReferenceCount = 0;
+                
+                for (let line of lines) {
+                    if (line.includes('# table ')) {
+                        // This line has a table reference - highlight in bright red
+                        processedContent += `<span class="table-reference">${line}</span>\n`;
+                        tableReferenceCount++;
+                    } else {
+                        processedContent += line + '\n';
+                    }
+                }
+                
+                previewContent.innerHTML = processedContent;
+                previewContent.className = 'preview-content';
+                
+                // Update stats
+                const fieldMappings = lines.filter(line => line.startsWith('0000 ')).length;
+                
+                document.getElementById('totalLines').textContent = lines.length;
+                document.getElementById('fieldMappings').textContent = fieldMappings;
+                document.getElementById('tableReferredFields').textContent = tableReferenceCount;
+                
+                // Update button visibility
+                document.getElementById('editBtn').style.display = 'inline-block';
+                document.getElementById('cobolBtn').style.display = 'inline-block';
+                document.getElementById('confirmBtn').style.display = 'none';
+                document.getElementById('cancelBtn').style.display = 'none';
+                
+                isEditMode = false;
+                
+                showMessage('✅ Changes confirmed! You can now download the updated file.', 'success');
+            }
+        }
+        
+        function cancelEdit() {
+            // Restore original content
+            currentContent = originalContent;
+            
+            // Process content for red highlighting
+            const lines = currentContent.split('\n');
+            let processedContent = '';
+            let tableReferenceCount = 0;
+            
+            for (let line of lines) {
+                if (line.includes('<!-- TABLE_REF -->')) {
+                    // This line has a table reference - highlight in bright red
+                    // Remove the marker from display but keep the styling
+                    const cleanLine = line.replace(' <!-- TABLE_REF -->', '');
+                    processedContent += `<span class="table-reference">${cleanLine}</span>\n`;
+                    tableReferenceCount++;
+                } else {
+                    processedContent += line + '\n';
+                }
+            }
+            
+            previewContent.innerHTML = processedContent;
+            previewContent.className = 'preview-content';
+            
+            // Update stats
+            const fieldMappings = lines.filter(line => line.startsWith('0000 ')).length;
+            
+            document.getElementById('totalLines').textContent = lines.length;
+            document.getElementById('fieldMappings').textContent = fieldMappings;
+            document.getElementById('tableReferredFields').textContent = tableReferenceCount;
+            
+            // Update button visibility
+            document.getElementById('editBtn').style.display = 'inline-block';
+            document.getElementById('cobolBtn').style.display = 'inline-block';
+            document.getElementById('confirmBtn').style.display = 'none';
+            document.getElementById('cancelBtn').style.display = 'none';
+            
+            isEditMode = false;
+            
+            showMessage('❌ Changes cancelled. Original content restored.', 'error');
         }
 
         function downloadFile() {
@@ -508,6 +831,19 @@
             .catch(error => {
                 showError('Download failed: ' + error.message);
             });
+        }
+        
+        function generateCobolCode() {
+            if (!currentContent) {
+                showError('No content available to generate COBOL code');
+                return;
+            }
+            
+            // Store the control card data in sessionStorage
+            sessionStorage.setItem('controlCardData', currentContent);
+            
+            // Navigate to COBOL generator page
+            window.location.href = '/cobol-generator?data=true';
         }
     </script>
 </body>
