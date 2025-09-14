@@ -29,7 +29,7 @@ def upload_file():
             return jsonify({'error': 'Please upload an Excel file (.xlsx or .xls)'}), 400
         
         # Check if mode is supported
-        if mode not in ['DEMO/IRAS/DIST-normal', 'DIST_WITH_VARIABLE', 'IRAS_WITH_VARIABLE', 'XYZA', 'DIST']:
+        if mode not in ['DEMO/IRAS/DIST-normal', 'DEMO-NFS', 'DIST_WITH_VARIABLE', 'IRAS_WITH_VARIABLE', 'XYZA', 'DIST']:
             return jsonify({'error': 'Invalid mode selected'}), 400
         
         # Save uploaded file temporarily
@@ -78,6 +78,34 @@ def upload_file():
                     'success': False,
                     'error': '🚧 DIST mode is coming soon! Please use "DEMO", "IRAS", or "XYZA" mode for now.'
                 })
+            elif mode == 'DEMO-NFS':
+                # DEMO-NFS mode - same logic as DEMO but with different table reference extraction
+                converter = ExcelToTextConverter()
+                prefix_info = converter.detect_prefix_in_file(temp_path)
+                
+                if prefix_info['has_prefix']:
+                    # Return prefix detection info for user confirmation
+                    return jsonify({
+                        'success': False,
+                        'prefix_detected': True,
+                        'prefix': prefix_info['prefix'],
+                        'column_name': prefix_info['column_name'],
+                        'temp_path': temp_path,
+                        'filename': file.filename,
+                        'message': f"🔍 Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
+                    })
+                else:
+                    # No prefix detected, proceed with DEMO-NFS conversion
+                    converted_text = converter.convert_excel_to_text(temp_path, mode='DEMO-NFS')
+                    
+                    # Clean up temp file
+                    os.unlink(temp_path)
+                    
+                    return jsonify({
+                        'success': True,
+                        'preview': converted_text,
+                        'filename': file.filename
+                    })
             elif mode == 'XYZA':
                 # XYZA mode - show coming soon message
                 # Clean up temp file

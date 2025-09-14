@@ -144,6 +144,9 @@ class ExcelToTextConverter:
                 elif mode == 'IRAS':
                     # For IRAS mode, process DSTRBTN SORC table references
                     table_output = self._generate_iras_table_reference_output(table_referenced_fields, excel_sheets, available_sheets)
+                elif mode == 'DEMO-NFS':
+                    # For DEMO-NFS mode, use DEMO-NFS specific table reference processing
+                    table_output = self._generate_demo_nfs_table_reference_output(table_referenced_fields, excel_sheets, available_sheets)
                 else:
                     # For other modes (DEMO), use normal table reference processing
                     table_output = self._generate_table_reference_output(table_referenced_fields, excel_sheets, available_sheets)
@@ -468,6 +471,218 @@ class ExcelToTextConverter:
                 table_output.extend(field_table_output)
         
         return table_output
+    
+    def _generate_demo_nfs_table_reference_output(self, table_referenced_fields: List[Dict[str, Any]], excel_sheets: Dict[str, pd.DataFrame], available_sheets: List[str]) -> List[str]:
+        """Generate DEMO-NFS mode table reference output with specific column logic"""
+        table_output = []
+        
+        # Process each table-referenced field
+        for field_mapping in table_referenced_fields:
+            begin = field_mapping['begin']
+            demo_field = field_mapping['demo_field']
+            table_reference = field_mapping['table_reference']
+            
+            # Check if table sheet exists
+            if not self._check_table_sheet_exists(table_reference, available_sheets):
+                continue
+            
+            # Find the table sheet
+            table_sheet = self._find_table_sheet(table_reference, excel_sheets)
+            if table_sheet is None:
+                continue
+            
+            # Generate table data for this field using DEMO-NFS specific logic
+            field_table_output = self._process_demo_nfs_table_reference(begin, demo_field, table_reference, table_sheet)
+            if field_table_output:
+                table_output.extend(field_table_output)
+        
+        return table_output
+    
+    def _process_demo_nfs_table_reference(self, begin: str, demo_field: str, table_reference: str, table_sheet: pd.DataFrame) -> List[str]:
+        """Process a single table reference for DEMO-NFS mode with specific column logic"""
+        try:
+            print(f"DEBUG: DEMO-NFS processing table reference for field '{demo_field}' with begin '{begin}' in table '{table_reference}'")
+            
+            # Set DEMO-NFS mode flag for format_table_output
+            self._is_demo_nfs_mode = True
+            
+            # Search for the begin pattern in the table sheet
+            begin_position = self._find_begin_row(begin, table_sheet)
+            if begin_position is None:
+                print(f"DEBUG: DEMO-NFS - No begin position found for '{begin}' in table '{table_reference}'")
+                return [f"**** ALERT: Field {begin} has table reference but 'beg {begin}' not found in table sheet ****"]
+            
+            begin_row, begin_col = begin_position
+            print(f"DEBUG: DEMO-NFS - Found begin position at row {begin_row}, col {begin_col}")
+            
+            # Extract range data using DEMO-NFS specific logic (one column to the left)
+            range_data = self._extract_demo_nfs_range_data(table_sheet, begin_row, begin_col)
+            if not range_data:
+                print(f"DEBUG: DEMO-NFS - No range data extracted for field '{demo_field}'")
+                return [f"**** ALERT: No range data found for field {begin} in table sheet ****"]
+            
+            print(f"DEBUG: DEMO-NFS - Extracted {len(range_data)} range data items for field '{demo_field}'")
+            
+            # Generate formatted output using existing format logic (with DEMO-NFS flag set)
+            result = self._format_table_output(begin, demo_field, table_reference, range_data)
+            
+            # Clear the flag
+            self._is_demo_nfs_mode = False
+            
+            return result
+            
+        except Exception as e:
+            print(f"DEBUG: DEMO-NFS - Error processing table reference for field {demo_field}: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            # Clear the flag on error
+            self._is_demo_nfs_mode = False
+            return [f"**** ALERT: Error processing table reference for field {demo_field} ****"]
+    
+    def _extract_demo_nfs_range_data(self, table_sheet: pd.DataFrame, begin_row: int, begin_col: int) -> List[Dict[str, str]]:
+        """Extract range data for DEMO-NFS mode - always one column to the left, data as-is"""
+        range_data = []
+        
+        # DEMO-NFS specific logic: find the column with actual range data
+        normal_target_col = begin_col - 1
+        
+        # For DEMO-NFS, we need to find the column that contains actual ranges (not just single digits)
+        # Let's check a few columns to the left to find the one with range data
+        demo_nfs_range_col = None
+        demo_nfs_code_col = normal_target_col  # Codes still in the normal target column
+        
+        # Check columns to the left of normal target to find actual range data
+        for check_col in range(max(0, normal_target_col - 3), normal_target_col):
+            if check_col < len(table_sheet.columns) and begin_row + 1 < len(table_sheet):
+                sample_value = str(table_sheet.iloc[begin_row + 1, check_col]).strip()
+                print(f"DEBUG: DEMO-NFS - Checking col {check_col} for range data: '{sample_value}'")
+                
+                # Look for actual range patterns (contains hyphens, dollar signs, commas, or multi-word descriptions)
+                if any(indicator in sample_value for indicator in ['-', '$', ',', ' ', 'K', 'asked', 'default', 'blank']):
+                    demo_nfs_range_col = check_col
+                    print(f"DEBUG: DEMO-NFS - Found range data column: {check_col}")
+                    break
+        
+        # Fallback to one column left if no range column found
+        if demo_nfs_range_col is None:
+            demo_nfs_range_col = max(0, normal_target_col - 1)
+            print(f"DEBUG: DEMO-NFS - Using fallback range column: {demo_nfs_range_col}")
+        
+        if demo_nfs_range_col < 0:
+            demo_nfs_range_col = 0
+        
+        print(f"DEBUG: DEMO-NFS - Using range column {demo_nfs_range_col}, code column {demo_nfs_code_col}")
+        
+        start_row = begin_row + 1
+        if start_row < len(table_sheet):
+            sample_range = str(table_sheet.iloc[start_row, demo_nfs_range_col]).strip()
+            sample_code = str(table_sheet.iloc[start_row, demo_nfs_code_col]).strip() if demo_nfs_code_col < len(table_sheet.columns) else "N/A"
+            print(f"DEBUG: DEMO-NFS - Sample values - Range: '{sample_range}', Code: '{sample_code}'")
+            
+            # Show entire first data row to understand the structure
+            print(f"DEBUG: DEMO-NFS - First data row (row {start_row}) contents:")
+            for col_idx in range(min(10, len(table_sheet.columns))):  # Show first 10 columns
+                cell_val = str(table_sheet.iloc[start_row, col_idx]).strip() if pd.notna(table_sheet.iloc[start_row, col_idx]) else "NaN"
+                print(f"  Col {col_idx}: '{cell_val}'")
+        
+        for row_idx in range(begin_row + 1, len(table_sheet)):
+            # Extract range data from the DEMO-NFS range column
+            range_text = ""
+            if demo_nfs_range_col < len(table_sheet.columns):
+                cell_value = table_sheet.iloc[row_idx, demo_nfs_range_col]
+                range_text = str(cell_value) if pd.notna(cell_value) else ""
+                range_text = range_text.strip()
+                
+                print(f"DEBUG: DEMO-NFS - Row {row_idx}, Range Col {demo_nfs_range_col} value: '{range_text}'")
+            
+            # Extract code from the DEMO-NFS code column
+            code = ""
+            if demo_nfs_code_col < len(table_sheet.columns):
+                code_cell = table_sheet.iloc[row_idx, demo_nfs_code_col]
+                code = str(code_cell) if pd.notna(code_cell) else ""
+                code = code.strip()
+                
+                # Convert literal "space" to actual space character
+                if code.lower() == "space":
+                    code = " "
+                    
+                print(f"DEBUG: DEMO-NFS - Row {row_idx}, Code Col {demo_nfs_code_col} value: '{code}'")
+            
+            # Extract warning report from the column after code
+            warning_report = ""
+            warning_col = demo_nfs_code_col + 1
+            if warning_col < len(table_sheet.columns):
+                warning_cell = table_sheet.iloc[row_idx, warning_col]
+                warning_report = str(warning_cell) if pd.notna(warning_cell) else ""
+                warning_report = warning_report.strip()
+                
+                # Convert literal "space" to actual space character
+                if warning_report.lower() == "space":
+                    warning_report = " "
+                    
+                print(f"DEBUG: DEMO-NFS - Row {row_idx}, Warning Col {warning_col} value: '{warning_report}'")
+            
+            # If both range_text and code are empty, stop reading
+            if not range_text and not code:
+                print(f"DEBUG: DEMO-NFS - Found empty row at {row_idx}, stopping range data extraction.")
+                break
+            
+            # Skip completely empty range_text
+            if not range_text:
+                continue
+                
+            # For DEMO-NFS, handle special cases and apply range conversion logic
+            range_lower = range_text.lower()
+            print(f"DEBUG: DEMO-NFS Processing range_text: '{range_text}' (lower: '{range_lower}')")
+            
+            # Special cases that should be converted to zeros in DEMO-NFS
+            special_zero_cases = ['default', 'not asked', 'blank', 'refused', 'zero']
+            is_special_case = any(special in range_lower for special in special_zero_cases)
+            
+            # Also treat single digits/letters as special cases for DEMO-NFS (should be zeros)
+            is_single_char = (range_text.isdigit() and len(range_text) <= 3) or (len(range_text) == 1 and range_text.isalpha())
+            
+            if is_single_char:
+                print(f"DEBUG: DEMO-NFS Single character/digit '{range_text}' -> treating as special case (zeros)")
+                is_special_case = True
+            
+            if is_special_case:
+                # Convert special cases to zeros
+                print(f"DEBUG: DEMO-NFS Special case '{range_text}' -> using zeros")
+                min_val = "0000000000000"  # 13 digits with leading zeros
+                max_val = "0000000000000"  # 13 digits with leading zeros
+            elif range_text.strip() and range_text not in ['nan', 'None', '']:
+                # Try to convert any non-empty, non-special-case range text
+                print(f"DEBUG: DEMO-NFS About to convert range: '{range_text}'")
+                try:
+                    min_val, max_val = self._convert_range_to_numeric(range_text)
+                    print(f"DEBUG: DEMO-NFS Range conversion SUCCESS - '{range_text}' -> min: '{min_val}', max: '{max_val}'")
+                except Exception as e:
+                    print(f"DEBUG: DEMO-NFS Range conversion FAILED for '{range_text}': {e}")
+                    # If conversion fails, use zeros
+                    min_val = "0000000000000"  # 13 digits with leading zeros
+                    max_val = "0000000000000"  # 13 digits with leading zeros
+            else:
+                # For other non-range data, use zeros
+                print(f"DEBUG: DEMO-NFS Non-range data: '{range_text}' -> using zeros")
+                min_val = "0000000000000"  # 13 digits with leading zeros
+                max_val = "0000000000000"  # 13 digits with leading zeros
+            
+            print(f"DEBUG: DEMO-NFS Final values - min_val: '{min_val}', max_val: '{max_val}', code: '{code}', warning: '{warning_report}'")
+            
+            range_info = {
+                'range_text': range_text,
+                'min_val': min_val,
+                'max_val': max_val,
+                'code': code,
+                'warning_report': warning_report
+            }
+            
+            range_data.append(range_info)
+            print(f"DEBUG: DEMO-NFS - Added range info: {range_info}")
+        
+        print(f"DEBUG: DEMO-NFS - Total range data extracted: {len(range_data)}")
+        return range_data
     
     def _generate_doca_table_reference_output(self, table_referenced_fields: List[Dict[str, Any]], excel_sheets: Dict[str, pd.DataFrame], available_sheets: List[str]) -> List[str]:
         """Generate DOCA mode table reference output with intelligent extraction"""
@@ -1383,50 +1598,65 @@ class ExcelToTextConverter:
         
         # Check if the first target column is empty, if so try previous column
         start_row = begin_row + 1
+        range_col = target_col  # Column for range data
+        code_col = target_col + 1  # Column for codes
+        
         if start_row < len(table_sheet):
             first_cell_value = str(table_sheet.iloc[start_row, target_col]).strip()
             if not first_cell_value or first_cell_value.lower() in ['nan', 'none', '']:
                 print(f"DEBUG: Column {target_col} is empty, trying previous column {target_col - 1}")
-                target_col = target_col - 1
-                if target_col < 0:
+                range_col = target_col - 1
+                code_col = target_col  # Codes move to the original target column
+                
+                if range_col < 0:
                     print(f"DEBUG: ERROR: No data found in expected columns")
                     return []
                 
                 # Check if the fallback column is also empty
-                fallback_cell_value = str(table_sheet.iloc[start_row, target_col]).strip()
+                fallback_cell_value = str(table_sheet.iloc[start_row, range_col]).strip()
                 if not fallback_cell_value or fallback_cell_value.lower() in ['nan', 'none', '']:
-                    print(f"DEBUG: ERROR: Fallback column {target_col} is also empty")
+                    print(f"DEBUG: ERROR: Fallback column {range_col} is also empty")
                     return []
                 
-                print(f"DEBUG: Using fallback column {target_col} with value: '{fallback_cell_value}'")
+                print(f"DEBUG: Using fallback - Range column: {range_col}, Code column: {code_col}")
+                print(f"DEBUG: Fallback range value: '{fallback_cell_value}'")
+            else:
+                print(f"DEBUG: Using normal columns - Range column: {range_col}, Code column: {code_col}")
+                print(f"DEBUG: Normal range value: '{first_cell_value}'")
         
         for row_idx in range(begin_row + 1, len(table_sheet)):
-                # Get the specific cell at row N+1, column M-1
-                if target_col < len(table_sheet.columns):
-                    cell_value = table_sheet.iloc[row_idx, target_col]
+                # Extract range data from the determined range column
+                range_text = ""
+                if range_col < len(table_sheet.columns):
+                    cell_value = table_sheet.iloc[row_idx, range_col]
                     range_text = str(cell_value) if pd.notna(cell_value) else ""
                     
                     # Convert literal "space" to actual space character
                     if range_text.strip().lower() == "space":
                         range_text = " "
                     
-                    print(f"DEBUG: Row {row_idx}, Col {target_col} value: '{range_text}'")
+                    print(f"DEBUG: Row {row_idx}, Range Col {range_col} value: '{range_text}'")
                     
-                    # Check if this row is completely empty (both range_text and code are empty)
-                    code = ""
-                    warning_report = ""
-                    if target_col + 1 < len(table_sheet.columns):
-                        code_cell = table_sheet.iloc[row_idx, target_col + 1]
-                        code = str(code_cell) if pd.notna(code_cell) else ""
-                        # Convert literal "space" to actual space character
-                        if code.strip().lower() == "space":
-                            code = " "
-                    if target_col + 2 < len(table_sheet.columns):
-                        warning_cell = table_sheet.iloc[row_idx, target_col + 2]
-                        warning_report = str(warning_cell) if pd.notna(warning_cell) else ""
-                        # Convert literal "space" to actual space character
-                        if warning_report.strip().lower() == "space":
-                            warning_report = " "
+                # Extract code from the determined code column
+                code = ""
+                if code_col < len(table_sheet.columns):
+                    code_cell = table_sheet.iloc[row_idx, code_col]
+                    code = str(code_cell) if pd.notna(code_cell) else ""
+                    # Convert literal "space" to actual space character
+                    if code.strip().lower() == "space":
+                        code = " "
+                    print(f"DEBUG: Row {row_idx}, Code Col {code_col} value: '{code}'")
+                
+                # Extract warning report from the column after code
+                warning_report = ""
+                warning_col = code_col + 1
+                if warning_col < len(table_sheet.columns):
+                    warning_cell = table_sheet.iloc[row_idx, warning_col]
+                    warning_report = str(warning_cell) if pd.notna(warning_cell) else ""
+                    # Convert literal "space" to actual space character
+                    if warning_report.strip().lower() == "space":
+                        warning_report = " "
+                    print(f"DEBUG: Row {row_idx}, Warning Col {warning_col} value: '{warning_report}'")
                 
                 # If both range_text and code are empty or contain only whitespace, stop reading
                 if not range_text.strip() and not code.strip():
@@ -1440,6 +1670,11 @@ class ExcelToTextConverter:
                 ]):
                     print(f"DEBUG: Found descriptive text '{range_text}' at {row_idx}, stopping range data extraction.")
                     break
+                
+                # Skip rows with single digit values like "5" that are not valid range data
+                if range_text.strip().isdigit() and len(range_text.strip()) == 1:
+                    print(f"DEBUG: Skipping single digit value: '{range_text}'")
+                    continue
                 
                 if range_text.strip() and range_text.strip() not in ['nan', 'none']:  # If there's actual content
                     # Skip rows that don't look like valid range data
@@ -1705,7 +1940,69 @@ class ExcelToTextConverter:
         # Check if this is range-based data or non-range data
         is_range_data = any('$' in info['range_text'] or info['min_val'].isdigit() for info in range_data)
         
-        # Special handling for DEMO-S-NET-INCOME
+        # Special handling for DEMO-NFS mode with specific fields
+        demo_nfs_fields = ["DEMO-S-NET-INCOME", "DEMO-NET-INCOME", "DEMO-NETWORTH", "DEMO-LIQUID-NETWORTH"]
+        if demo_field.upper() in demo_nfs_fields and hasattr(self, '_is_demo_nfs_mode') and self._is_demo_nfs_mode:
+            output.append("************************************************************************")
+            output.append("****")
+            output.append(f"**** RECORD TYPE {begin_trimmed}A (TABLE A)")
+            output.append("****")
+            output.append("****   COL 007-007 = NFS-SUTFD-INV-ASSETS")
+            output.append("****   COL 010-022 = NFS-SUTFD-INV-ASSETS-DLRS  (LOW VALUES)")
+            output.append("****   COL 025-037 = NFS-SUTFD-INV-ASSETS-DLRS  (HIGH VALUES)")
+            output.append(f"****   COL 040-040 = {demo_field.upper()}")
+            output.append("****   COL 043-043 = WARNING")
+            output.append("****")
+            output.append("****  *  *************  *************  *  *")
+            
+            # Add range data with DEMO-NFS specific column restrictions
+            print(f"DEBUG: DEMO-NFS Formatting {len(range_data)} range data items for field {demo_field}")
+            for i, range_info in enumerate(range_data):
+                min_val = range_info['min_val']
+                max_val = range_info['max_val']
+                code = range_info['code']
+                warning_report = range_info.get('warning_report', '')
+                
+                print(f"DEBUG: DEMO-NFS Item {i}: min_val='{min_val}', max_val='{max_val}', code='{code}', warning='{warning_report}'")
+                
+                # Debug logging for DEMO-NFS formatting
+                print(f"DEBUG: DEMO-NFS Formatting - min_val: '{min_val}', max_val: '{max_val}', code: '{code}', warning: '{warning_report}'")
+                
+                # Restrict columns based on header specifications
+                # COL 007-007 = NFS-SUTFD-INV-ASSETS (1 char) - use first char of code
+                nfs_assets = code[:1] if code else " "
+                
+                # COL 010-022 = LOW VALUES (13 chars) - use min_val, pad to 13 chars
+                if min_val and len(min_val) >= 13:
+                    low_values = min_val[:13]
+                else:
+                    low_values = min_val.ljust(13) if min_val else " " * 13
+                
+                # COL 025-037 = HIGH VALUES (13 chars) - use max_val, pad to 13 chars  
+                if max_val and len(max_val) >= 13:
+                    high_values = max_val[:13]
+                else:
+                    high_values = max_val.ljust(13) if max_val else " " * 13
+                
+                # COL 040-040 = DEMO FIELD (1 char) - use first char of code
+                demo_code = code[:1] if code else " "
+                
+                # COL 043-043 = WARNING (1 char)
+                warning_code = warning_report[:1] if warning_report else " "
+                
+                print(f"DEBUG: DEMO-NFS Formatted - assets: '{nfs_assets}', low: '{low_values}', high: '{high_values}', demo: '{demo_code}', warning: '{warning_code}'")
+                
+                print(f"DEBUG: DEMO-NFS Formatted columns: nfs_assets='{nfs_assets}', low_values='{low_values}', high_values='{high_values}', demo_code='{demo_code}', warning_code='{warning_code}'")
+                
+                # Format with proper spacing based on column specifications
+                # Ensure proper column alignment: begin(4) + space + assets(1) + 2 spaces + low(13) + 2 spaces + high(13) + 2 spaces + demo(1) + 2 spaces + warning(1)
+                line = f"{begin_trimmed}A  {nfs_assets}  {low_values}  {high_values}  {demo_code}  {warning_code}"
+                print(f"DEBUG: DEMO-NFS Final line: '{line}'")
+                output.append(line)
+            
+            return output
+        
+        # Special handling for DEMO-S-NET-INCOME (regular DEMO mode)
         if demo_field.upper() == "DEMO-S-NET-INCOME":
             output.append("************************************************************************")
             output.append("****")
