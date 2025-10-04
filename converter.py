@@ -374,15 +374,21 @@ class ExcelToTextConverter:
         if not instructions or instructions == 'nan':
             return None
         
+        print(f"DEBUG: _extract_table_reference - Instructions: '{instructions}'")
+        
         # Look for DSTRBTN SORC references first
         if re.search(r'dstrbtn\s+sorc', instructions, re.IGNORECASE):
+            print(f"DEBUG: _extract_table_reference - Found DSTRBTN SORC reference")
             return 'dstrbtn sorc'
         
         # Look for table references like "Table A", "TABLE B", "table C", etc.
         match = re.search(r'table\s+([A-Za-z0-9]+)', instructions, re.IGNORECASE)
         if match:
-            return match.group(1).lower()
+            table_ref = match.group(1).lower()
+            print(f"DEBUG: _extract_table_reference - Found table reference: '{table_ref}'")
+            return table_ref
         
+        print(f"DEBUG: _extract_table_reference - No table reference found")
         return None  # default
     
     def _check_table_sheet_exists(self, table_reference: str, available_sheets: List[str]) -> bool:
@@ -1505,7 +1511,7 @@ class ExcelToTextConverter:
             print(f"DEBUG: Found begin position at row {begin_row}, col {begin_col}")
             
             # Extract range data from rows below the begin row, starting from column M-1
-            range_data = self._extract_range_data(table_sheet, begin_row, begin_col)
+            range_data = self._extract_range_data(table_sheet, begin_row, begin_col, demo_field)
             if not range_data:
                 print(f"DEBUG: No range data extracted for field '{demo_field}'")
                 return [f"**** ALERT: No range data found for field {begin} in table sheet ****"]
@@ -1585,7 +1591,7 @@ class ExcelToTextConverter:
         print(f"DEBUG: Tried patterns: {patterns_to_try}")
         return None
     
-    def _extract_range_data(self, table_sheet: pd.DataFrame, begin_row: int, begin_col: int) -> List[Dict[str, str]]:
+    def _extract_range_data(self, table_sheet: pd.DataFrame, begin_row: int, begin_col: int, demo_field: str = "") -> List[Dict[str, str]]:
         """Extract range data from rows below the begin row, with fallback column logic"""
         range_data = []
         
@@ -1600,6 +1606,24 @@ class ExcelToTextConverter:
         start_row = begin_row + 1
         range_col = target_col  # Column for range data
         code_col = target_col + 1  # Column for codes
+        
+        # Special handling for DEMO-MARITAL-STATUS: skip description column
+        if "DEMO-MARITAL-STATUS" in demo_field.upper():
+            print(f"DEBUG: DEMO-MARITAL-STATUS detected - looking for DEMO-MARITAL-STATUS column (skipping description)")
+            print(f"DEBUG: DEMO-MARITAL-STATUS - Field: {demo_field}, Begin: {begin_row}, Col: {begin_col}")
+            # For DEMO-MARITAL-STATUS, we need to find the column that contains A, B, etc.
+            # Skip the description column which contains "Divorced", "Married", etc.
+            for check_col in range(target_col, min(target_col + 3, len(table_sheet.columns))):
+                if start_row < len(table_sheet):
+                    sample_value = str(table_sheet.iloc[start_row, check_col]).strip()
+                    print(f"DEBUG: DEMO-MARITAL-STATUS - Checking col {check_col}: '{sample_value}'")
+                    
+                    # Look for single letter codes (A, B, C, etc.) or "space"
+                    if (len(sample_value) == 1 and sample_value.isalpha()) or sample_value.lower() == "space":
+                        print(f"DEBUG: DEMO-MARITAL-STATUS - Found DEMO-MARITAL-STATUS column: {check_col}")
+                        code_col = check_col
+                        range_col = target_col  # Keep range column as the input values
+                        break
         
         if start_row < len(table_sheet):
             first_cell_value = str(table_sheet.iloc[start_row, target_col]).strip()
@@ -1930,6 +1954,36 @@ class ExcelToTextConverter:
         # Default fallback
         return "000000000000000", "000000000000000"
     
+    def _detect_duplicate_columns(self, range_data: List[Dict[str, str]]) -> tuple:
+        """
+        Detect if columns contain identical data across all rows.
+        Only applies to specific cases where we have obvious duplicate columns.
+        Returns (has_duplicates, columns_to_keep, columns_to_remove)
+        """
+        if len(range_data) < 2:
+            return False, [], []
+        
+        # Extract column values for comparison
+        min_vals = [item.get('min_val', '') for item in range_data]
+        max_vals = [item.get('max_val', '') for item in range_data]
+        
+        # Only check for duplicates if we have the specific pattern of all zeros
+        # or if min_vals and max_vals are identical AND contain the zero pattern
+        has_zero_pattern = any('000000000000000' in str(val) for val in min_vals)
+        has_identical_columns = min_vals == max_vals
+        
+        # Only apply duplicate detection if we have the specific zero pattern
+        # or if columns are truly identical (not just similar)
+        if has_zero_pattern and has_identical_columns:
+            print(f"DEBUG: Duplicate columns detected with zero pattern! Removing max_val column")
+            return True, ['min_val', 'code', 'warning_report'], ['max_val']
+        elif has_identical_columns and len(set(min_vals)) > 1:  # Multiple unique values but identical columns
+            print(f"DEBUG: Duplicate columns detected! Removing max_val column")
+            return True, ['min_val', 'code', 'warning_report'], ['max_val']
+        else:
+            print(f"DEBUG: No duplicate columns detected - normal range data")
+            return False, ['min_val', 'max_val', 'code', 'warning_report'], []
+    
     def _format_table_output(self, begin: str, demo_field: str, table_reference: str, range_data: List[Dict[str, str]]) -> List[str]:
         """Format the table output with proper structure"""
         output = []
@@ -2004,71 +2058,99 @@ class ExcelToTextConverter:
         
         # Special handling for DEMO-S-NET-INCOME (regular DEMO mode)
         if demo_field.upper() == "DEMO-S-NET-INCOME":
+            # Check for duplicate columns
+            has_duplicates, columns_to_keep, columns_to_remove = self._detect_duplicate_columns(range_data)
+            
             output.append("************************************************************************")
             output.append("****")
             output.append(f"**** DEMO-S-NET-INCOME {begin_trimmed}A (TABLE A #1-TOP ON MAPPING)")
             output.append("****")
-            output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (LOW RANGE)")
-            output.append("****   COL 024-038 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (HIGH RANGE)")
-            output.append("****   COL 041-041 = DEMO-S-NET-INCOME")
-            output.append("****   COL 044-044 = WARNING REPORT (Y/N)")
-            output.append("****")
-            output.append("****  ***************  ***************  *  *")
             
-            # Add range data with proper spacing based on column specifications
-            for range_info in range_data:
-                min_val = range_info['min_val']
-                max_val = range_info['max_val']
-                code = range_info['code']
-                warning_report = range_info.get('warning_report', '')
+            if has_duplicates and 'max_val' in columns_to_remove:
+                # Single column format (duplicate columns detected)
+                output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3)")
+                output.append("****   COL 024-024 = DEMO-S-NET-INCOME")
+                output.append("****   COL 027-027 = WARNING REPORT (Y/N)")
+                output.append("****")
+                output.append("****  ***************  *  *")
                 
-                # Format with proper spacing: COL 007-021 (15 chars), COL 024-038 (15 chars), COL 041-041 (1 char), COL 044-044 (1 char)
-                # Position 1-6: begin + table reference (e.g., "288A  ")
-                # Position 7-21: low range (15 characters)
-                # Position 22-23: spaces
-                # Position 24-38: high range (15 characters)  
-                # Position 39-40: spaces
-                # Position 41: demo net income (1 character)
-                # Position 42-43: spaces
-                # Position 44: warning report (1 character)
+                # Add range data with single column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    code = range_info['code']
+                    warning_report = range_info.get('warning_report', '')
+                    
+                    # Single column format: COL 007-021 (15 chars), COL 024-024 (1 char), COL 027-027 (1 char)
+                    line = f"{begin_trimmed}A  {min_val:<15}  {code}  {warning_report}"
+                    output.append(line)
+            else:
+                # Multi-column format (no duplicates)
+                output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (LOW RANGE)")
+                output.append("****   COL 024-038 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (HIGH RANGE)")
+                output.append("****   COL 041-041 = DEMO-S-NET-INCOME")
+                output.append("****   COL 044-044 = WARNING REPORT (Y/N)")
+                output.append("****")
+                output.append("****  ***************  ***************  *  *")
                 
-                line = f"{begin_trimmed}A  {min_val:<15}  {max_val:<15}  {code}  {warning_report}"
-                output.append(line)
+                # Add range data with multi-column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    max_val = range_info['max_val']
+                    code = range_info['code']
+                    warning_report = range_info.get('warning_report', '')
+                    
+                    # Multi-column format: COL 007-021 (15 chars), COL 024-038 (15 chars), COL 041-041 (1 char), COL 044-044 (1 char)
+                    line = f"{begin_trimmed}A  {min_val:<15}  {max_val:<15}  {code}  {warning_report}"
+                    output.append(line)
             
             return output
         
         # Special handling for DEMO-NET-INCOME (without S)
         if demo_field.upper() == "DEMO-NET-INCOME":
+            # Check for duplicate columns
+            has_duplicates, columns_to_keep, columns_to_remove = self._detect_duplicate_columns(range_data)
+            
             output.append("************************************************************************")
             output.append("****")
             output.append(f"**** DEMO-NET-INCOME {begin_trimmed}A (TABLE A #1-TOP ON MAPPING)")
             output.append("****")
-            output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (LOW RANGE)")
-            output.append("****   COL 024-038 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (HIGH RANGE)")
-            output.append("****   COL 041-041 = DEMO-NET-INCOME")
-            output.append("****   COL 044-044 = WARNING REPORT (Y/N)")
-            output.append("****")
-            output.append("****  ***************  ***************  *  *")
             
-            # Add range data with proper spacing based on column specifications
-            for range_info in range_data:
-                min_val = range_info['min_val']
-                max_val = range_info['max_val']
-                code = range_info['code']
-                warning_report = range_info.get('warning_report', '')
+            if has_duplicates and 'max_val' in columns_to_remove:
+                # Single column format (duplicate columns detected)
+                output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3)")
+                output.append("****   COL 024-024 = DEMO-NET-INCOME")
+                output.append("****   COL 027-027 = WARNING REPORT (Y/N)")
+                output.append("****")
+                output.append("****  ***************  *  *")
                 
-                # Format with proper spacing: COL 007-021 (15 chars), COL 024-038 (15 chars), COL 041-041 (1 char), COL 044-044 (1 char)
-                # Position 1-6: begin + table reference (e.g., "288A  ")
-                # Position 7-21: low range (15 characters)
-                # Position 22-23: spaces
-                # Position 24-38: high range (15 characters)  
-                # Position 39-40: spaces
-                # Position 41: demo net income (1 character)
-                # Position 42-43: spaces
-                # Position 44: warning report (1 character)
+                # Add range data with single column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    code = range_info['code']
+                    warning_report = range_info.get('warning_report', '')
+                    
+                    # Single column format: COL 007-021 (15 chars), COL 024-024 (1 char), COL 027-027 (1 char)
+                    line = f"{begin_trimmed}A  {min_val:<15}  {code}  {warning_report}"
+                    output.append(line)
+            else:
+                # Multi-column format (no duplicates)
+                output.append("****   COL 007-021 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (LOW RANGE)")
+                output.append("****   COL 024-038 = PER-MAIN1-AWAY-ASST-VAL-AM(1)-(8) PLUS PER-MAIN1-AWYASST-VAL-AM-EXT(1)-(3) (HIGH RANGE)")
+                output.append("****   COL 041-041 = DEMO-NET-INCOME")
+                output.append("****   COL 044-044 = WARNING REPORT (Y/N)")
+                output.append("****")
+                output.append("****  ***************  ***************  *  *")
                 
-                line = f"{begin_trimmed}A  {min_val:<15}  {max_val:<15}  {code}  {warning_report}"
-                output.append(line)
+                # Add range data with multi-column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    max_val = range_info['max_val']
+                    code = range_info['code']
+                    warning_report = range_info.get('warning_report', '')
+                    
+                    # Multi-column format: COL 007-021 (15 chars), COL 024-038 (15 chars), COL 041-041 (1 char), COL 044-044 (1 char)
+                    line = f"{begin_trimmed}A  {min_val:<15}  {max_val:<15}  {code}  {warning_report}"
+                    output.append(line)
             
             return output
         
@@ -2250,25 +2332,47 @@ class ExcelToTextConverter:
             return output
         
         if is_range_data:
+            # Check for duplicate columns
+            has_duplicates, columns_to_keep, columns_to_remove = self._detect_duplicate_columns(range_data)
+            
             # Range-based data format
             output.append("************************************************************************")
             output.append("****")
             output.append(f"**** {demo_field} {begin_trimmed}{table_reference.upper()} (TABLE {table_reference.upper()} #1-TOP ON MAPPING)")
-            output.append("****  ***************  ***************  *  *")
             
-            # Add range data
-            for range_info in range_data:
-                min_val = range_info['min_val']
-                max_val = range_info['max_val']
-                code = range_info['code']
+            if has_duplicates and 'max_val' in columns_to_remove:
+                # Single column format (duplicate columns detected)
+                output.append("****  ***************  *")
                 
-                # Format the line - handle special cases for N codes
-                if code.upper() == 'N' or code == ' ':
-                    line = f"{begin_trimmed}{table_reference.upper()}  {min_val}  {max_val}     N"
-                else:
-                    line = f"{begin_trimmed}{table_reference.upper()}  {min_val}  {max_val}  {code}"
+                # Add range data with single column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    code = range_info['code']
+                    
+                    # Single column format - handle special cases for N codes
+                    if code.upper() == 'N' or code == ' ':
+                        line = f"{begin_trimmed}{table_reference.upper()}  {min_val}     N"
+                    else:
+                        line = f"{begin_trimmed}{table_reference.upper()}  {min_val}  {code}"
+                    
+                    output.append(line)
+            else:
+                # Multi-column format (no duplicates)
+                output.append("****  ***************  ***************  *  *")
                 
-                output.append(line)
+                # Add range data with multi-column format
+                for range_info in range_data:
+                    min_val = range_info['min_val']
+                    max_val = range_info['max_val']
+                    code = range_info['code']
+                    
+                    # Multi-column format - handle special cases for N codes
+                    if code.upper() == 'N' or code == ' ':
+                        line = f"{begin_trimmed}{table_reference.upper()}  {min_val}  {max_val}     N"
+                    else:
+                        line = f"{begin_trimmed}{table_reference.upper()}  {min_val}  {max_val}  {code}"
+                    
+                    output.append(line)
         else:
             # Non-range data format
             output.append("************************************************************************")

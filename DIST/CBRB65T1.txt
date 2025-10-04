@@ -1,0 +1,199 @@
+************************************************************************
+****
+**** DATA FILE FOR DIST BTB STIFEL/B.RILEY (BRB).
+****
+************************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+************************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99)
+****   COL 16-30     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 33-47     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 50-77     DCDLPCH FIELD NAME
+****
+****   IMPORTANT NOTE:  THE ORDER OF THE '0000' CARDS IS IMPORTANT.
+****   --------------   THEY ARE PROCESSED IN THE ORDER THEY ARE IN.
+****
+**** ****  **  ***************  ***************  ****************************
+0000 0205  01                                    DIST-CDC-ACCT
+0000 0214  02  000000001                         DIST-CDC-TAX-ID
+0000 0223  01                                    DIST-CDC-NEW-TAX-ID
+0000 0232  02                                    DIST-CDC-SOURCE
+0000 0239  01                                    DIST-CDC-FREQUENCY
+0000 0240  01                                    DIST-CDC-BEGIN-CYMD
+0000 0249  01                                    DIST-CDC-END-CYMD
+0000 0258  01                                    DIST-CDC-DISTRIBUTION-AMT
+0000 0273  03  N                                 DIST-CDC-WITH-CODE-1
+0000 0274  03                                    DIST-CDC-WITH-PCT-1
+0000 0281  01                                    DIST-CDC-WITH-AMOUNT-1
+0000 0296  01                                    DIST-CDC-WITH-ALLOWANCE-1
+0000 0299  03  N                                 DIST-CDC-WITH-CODE-2
+0000 0300  02                                    DIST-CDC-WITH-PCT-2
+0000 0307  01                                    DIST-CDC-WITH-AMOUNT-2
+0000 0323  01                                    DIST-CDC-ALT-NALINE-1
+0000 0353  01                                    DIST-CDC-ALT-NALINE-2
+0000 0383  01                                    DIST-CDC-ALT-NALINE-3
+0000 0413  01                                    DIST-CDC-ALT-NALINE-4
+0000 0443  01                                    DIST-CDC-ALT-NALINE-5
+0000 0473  01                                    DIST-CDC-ALT-NALINE-6
+0000 0651  01                                    DIST-CDC-JNL-ACCT
+0000 0503  04  CLIENT REQUEST                    DIST-CDC-DESC-1
+0000 0527  01                                    DIST-CDC-ADDENDA
+0000 0607  01                                    DIST-CDC-ADD-CYMD
+0000 0616  01                                    DIST-CDC-UPDATE-VYMD
+0000 0625  01  EDP                               DIST-CDC-UPDATE-WHO
+0000 0628  01  CONV                              DIST-CDC-UPDATE-TERMINAL
+0000 0632  01                                    DIST-CDC-VARIABLE-AMT
+0000 0647  01                                    DIST-CDC-MARITAL-STAT
+0000 0648  01                                    DIST-CDC-STATE-CODE
+0000 0650  01                                    DIST-CDC-DIV-CODE
+0000 0660  02                                    DIST-CDC-INT-CODE
+0000 0661  03                                    DIST-CDC-OTHER-INCOME
+0000 0662  02                                    DIST-CDC-FREE-CREDIT
+0000 0663  02                                    DIST-CDC-CAP-GAINS
+0000 0664  01                                    DIST-CDC-JNL-ACCTTYPE
+0000 0665  01                                    DIST-CDC-JNL-SOURCE
+0000 0670  02                                    DIST-CDC-PRIN
+0000 0671  02                                    DIST-CDC-ROC
+0000 0672  02                                    DIST-CDC-PDST
+0000 0673  02                                    DIST-CDC-ROP
+0000 0674  03                                    DIST-CDC-LIQ
+0000 0675  03                                    DIST-CDC-DDIV
+0000 0676  02                                    DIST-CDC-MMF-DIV
+0000 0677  02                                    DIST-CDC-MMF-BAL
+0000 0678  01                                    DIST-CDC-ACH-ABA
+0000 0687  01                                    DIST-CDC-ACH-ACT
+0000 0704  01                                    DIST-CDC-ACH-CHK-SAV
+0000 0705  01                                    DIST-CDC-ACH-CUST-NAME
+0000 0727  01  N                N                DIST-CDC-ACH-MAIL-ADVISE
+0000 0728  01  20250404                          DIST-CDC-ACH-PRENOTE-CYMD
+0000 0737  01  20250408                          DIST-CDC-ACH-LIVE-CYMD
+0000 0746  01                                    DIST-CDC-TAXID-FORMAT
+0000 0747  01  0                                 DIST-CDC-ACH-TRANS-NO
+0000 0748  01                                    DIST-CDC-CINTR
+0000 0749  01                                    DIST-CDC-ACH-PRENOTE-FIRM
+0000 0752  01                                    DIST-CDC-ACH-PRENOTE-ACCT
+0000 0761  02                                    DIST-CDC-MAT
+0000 0762  01                                    DIST-CDC-ODO-AMT
+0000 0777  01                                    DIST-CDC-ADVICE-MIN-AMT
+0000 0781  01                                    DIST-CDC-DSI
+0000 0782  01                                    DIST-CDC-OLD-DSI
+0000 0783  01                                    DIST-CDC-DESC-2
+0000 0807  01                                    DIST-CDC-DESC-3
+0000 0847  01                                    DIST-CDC-PAYEE-TYPE
+0000 0848  02  D                D                DIST-CDC-ACH-BENEFICIARY-TYP
+0000 0849  01                                    DIST-CDC-JNL-BENEFICIARY-TYP
+0000 0850  02                                    DIST-CDC-RMD-IND
+0000 0851  01                                    DIST-CDC-INQ-PERSPECTIVE
+0000 0852  01                                    DIST-CDC-ORIGIN-ID
+0000 0857  01                                    DIST-CDC-EXTERNAL-RID
+0000 0869  01                                    DIST-CDC-ALT-NA-DESC
+0000 0873  01                                    DIST-CDC-ACCT-TYPE
+0000 0879  01                                    DIST-CDC-PROCESS-CYMD
+0000 0888  01                                    DIST-CDC-VAR-CYMD
+0000 0897  01                                    DIST-CDC-CHECK-STATUS-IND
+0000 0898  01                                    DIST-CDC-BEGIN-DD2
+0000 0900  01                                    DIST-CDC-CHECK-TYPE
+0000 0901  01  N                                 DIST-CDC-TRANS-FORMAT
+0000 0902  01  EFT                               DIST-CDC-ENTRY-SOURCE
+0000 0905  01                                    DIST-CDC-CUSTOMER-AUTH
+0000 0921  01                                    DIST-CDC-CLIENT-MEMO
+0000 0945  01                                    DIST-CDC-STATUS
+0000 0955  01                                    DIST-CDC-ST-MARITAL-STAT
+0000 0956  01                                    DIST-CDC-WITH-ALLOWANCE-2
+************************************************************************
+**** RECORD TYPE 232A - CDC-SOURCE (232) OPTION #2
+****
+****   COL 06-10 = CDC-SOURCE-IN
+****   COL 13-17 = CDC-SOURCE-OUT
+****   COL 20-20 = WARNING SWITCH
+****
+**** *****  *****  *
+232A COW    FAIR   N
+232A DEC1   DEC1   N
+232A DEC2   DEC2   N
+232A EDU3   EDU2   N
+232A EPP    EXCES  N
+232A EXRD   EXCR   N
+232A EXRP   EXRP   N
+232A EXRPE  EXRPE  N
+232A PEPD   PREMX  N
+232A PREM   PREM   N
+232A PRET   TOTP   N
+232A RDCT   RDCT   N
+232A RDPT   RDPT   N
+232A REG    REG    N
+232A REG2   REG    N
+232A REGT   TOTL   N
+232A RHE1   RHE1   N
+232A RHE2   RHE2   N
+232A RTH1   RTH1   N
+232A TDW    WDRO1  N
+************************************************************************
+**** RECORD TYPE 503A - CDC-DESC-1 (503) OPTION #3
+****
+****   COL 06-10 = CDC-SOURCE
+****   COL 13-36 = CDC-DESC-1
+****
+**** *****  ************************
+**** JNL    JOURNAL
+**** ACH    ACH DISTRIBUTION
+************************************************************************
+**** RECORD TYPE 503B - CDC-DESC-1 (503) OPTION #4
+****
+****   COL 06-06 = CDC-FREQUENCY
+****   COL 09-32 = CDC-DESC-1
+****
+**** *  ************************
+503B D  WEEKLY DIST
+503B W  WEEKLY DIST
+503B E  SEMI-MONTHLY
+503B L  MONTHLY DIST
+503B M  MONTHLY DIST
+503B Q  QUARTERLY DIST
+503B S  SEMI-ANNUAL DIST
+503B A  ANNUAL DIST
+************************************************************************
+**** RECORD TYPE 664A - CDC-JNL-ACCTTYPE (664) OPTION #1
+****
+****   COL 06-06 = DCDL-CDC-JNL-ACCTTYPE
+****   COL 09-09 = DIST-CDC-JNL-ACCTTYPE
+****
+**** *  *
+664A 0  1
+664A 1  1
+664A 2  2
+************************************************************************
+**** RECORD TYPE 665A - CDC-JNL-SOURCE   (665) OPTION #2
+****
+****   COL 06-06 = DCDL-CDC-JNL-SOURCE
+****   COL 09-09 = DIST-CDC-JNL-SOURCE
+****
+**** *****  *****
+**** COD    DCMG
+****
+************************************************************************
+**** RECORD TYPE 848A - CDC-ACH-BENEFICIARY-TYP (848) OPTION #2
+****
+****   COL 06-06 = DCDL-CDC-ACH-BENEFICIARY-TYPE
+****   COL 09-09 = DIST-CDC-ACH-BENEFICIARY-TYP
+****
+**** *  *
+**** A  A
+**** B  B
+**** H  D
+************************************************************************
+**** RECORD TYPE 849A - CDC-JNL-BENEFICIARY-TYP (849) OPTION #2
+****
+****   COL 06-06 = DCDL-CDC-JNL-BENEFICIARY-TYPE
+****   COL 09-09 = DIST-CDC-JNL-BENEFICIARY-TYP
+****
+**** *  *
+**** A  A
+**** B  B
+**** H  D
+************************************************************************

@@ -1,0 +1,278 @@
+************************************************************************
+****
+**** DATA CARD FOR:
+**** -----------------------------------------------------------------
+****             FILE : DIST
+****    OLD PROCESSOR : NFS
+****        FDC EVENT : LPL/NWI
+****
+************************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+************************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99)
+****   COL 16-30     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 33-47     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 50-77     DCDLPCH FIELD NAME
+****
+****   IMPORTANT NOTE:  THE ORDER OF THE '0000' CARDS IS IMPORTANT.
+****   --------------   THEY ARE PROCESSED IN THE ORDER THEY ARE IN.
+****
+**** ****  **  **  ***************  ***************  ****************************
+0000 0205  01  01                                    DIST-CDC-ACCT
+0000 0214  01  01                                    DIST-CDC-TAX-ID
+0000 0223  01  01                                    DIST-CDC-NEW-TAX-ID
+0000 0651  01  01                                    DIST-CDC-JNL-ACCT
+0000 0678  01  02                                    DIST-CDC-ACH-ABA
+0000 0232  02  02                                    DIST-CDC-SOURCE
+0000 0239  01  01                                    DIST-CDC-FREQUENCY
+0000 0240  01  01                                    DIST-CDC-BEGIN-CYMD
+0000 0249  01  01                                    DIST-CDC-END-CYMD
+0000 0258  01  01                                    DIST-CDC-DISTRIBUTION-AMT
+0000 0273  01  01                                    DIST-CDC-WITH-CODE-1
+0000 0274  01  01                                    DIST-CDC-WITH-PCT-1
+0000 0281  01  01                                    DIST-CDC-WITH-AMOUNT-1
+0000 0296  01  01                                    DIST-CDC-WITH-ALLOWANCE-1
+0000 0299  01  01                                    DIST-CDC-WITH-CODE-2
+0000 0300  01  01                                    1IST-CDC-WITH-PCT-2
+0000 0307  01  01                                    DIST-CDC-WITH-AMOUNT-2
+0000 0323  01  02                                    DIST-CDC-ALT-NALINE-1
+0000 0353  01  02                                    DIST-CDC-ALT-NALINE-2
+0000 0383  01  02                                    DIST-CDC-ALT-NALINE-3
+0000 0413  01  02                                    DIST-CDC-ALT-NALINE-4
+0000 0443  01  02                                    DIST-CDC-ALT-NALINE-5
+0000 0473  01  02                                    DIST-CDC-ALT-NALINE-6
+0000 0650  01  01                                    DIST-CDC-DIV-CODE
+0000 0503  03  02                                    DIST-CDC-DESC-1
+0000 0527  01  01                                    DIST-CDC-ADDENDA
+0000 0607  01  01                                    DIST-CDC-ADD-CYMD
+0000 0616  01  01                                    DIST-CDC-UPDATE-VYMD
+0000 0625  01  01                                    DIST-CDC-UPDATE-WHO
+0000 0628  01  01                                    DIST-CDC-UPDATE-TERMINAL
+0000 0632  01  01                                    DIST-CDC-VARIABLE-AMT
+0000 0647  01  01                                    DIST-CDC-MARITAL-STAT
+0000 0648  02  02                                    DIST-CDC-STATE-CODE
+0000 0660  01  01                                    DIST-CDC-INT-CODE
+0000 0661  01  01                                    DIST-CDC-OTHER-INCOME
+0000 0662  01  01                                    DIST-CDC-FREE-CREDIT
+0000 0663  01  01                                    DIST-CDC-CAP-GAINS
+0000 0664  01  01                                    DIST-CDC-JNL-ACCTTYPE
+0000 0665  02  01                                    DIST-CDC-JNL-SOURCE
+0000 0670  01  01                                    DIST-CDC-PRIN
+0000 0671  01  01                                    DIST-CDC-ROC
+0000 0672  01  01                                    DIST-CDC-PDST
+0000 0673  01  01                                    DIST-CDC-ROP
+0000 0674  01  01                                    DIST-CDC-LIQ
+0000 0675  01  02                                    DIST-CDC-DDIV
+0000 0676  01  01                                    DIST-CDC-MMF-DIV
+0000 0677  01  01                                    DIST-CDC-MMF-BAL
+0000 0687  01  02                                    DIST-CDC-ACH-ACT
+0000 0704  01  02                                    DIST-CDC-ACH-CHK-SAV
+0000 0705  02  02                                    DIST-CDC-ACH-CUST-NAME
+0000 0727  01  01  Y                                 DIST-CDC-ACH-MAIL-ADVISE
+0000 0728  01  01                                    DIST-CDC-ACH-PRENOTE-CYMD
+0000 0737  02  02  20250607                          DIST-CDC-ACH-LIVE-CYMD
+0000 0746  01  01                                    DIST-CDC-TAXID-FORMAT
+0000 0747  02  02                                    DIST-CDC-ACH-TRANS-NO
+0000 0748  01  01                                    DIST-CDC-CINTR
+0000 0749  01  01                                    DIST-CDC-ACH-PRENOTE-FIRM
+0000 0752  01  01                                    DIST-CDC-ACH-PRENOTE-ACCT
+0000 0761  01  01                                    DIST-CDC-MAT
+0000 0762  01  01                                    DIST-CDC-ODO-AMT
+0000 0777  01  01                                    DIST-CDC-ADVICE-MIN-AMT
+0000 0781  01  01                                    DIST-CDC-DSI
+0000 0782  01  01                                    DIST-CDC-OLD-DSI
+0000 0783  01  01                                    DIST-CDC-DESC-2
+0000 0807  01  01                                    DIST-CDC-DESC-3
+0000 0831  01  01                                    DIST-CDC-UPDATE-RACF-ID
+0000 0839  01  01                                    DIST-CDC-UPDATE-SOURCE
+0000 0847  02  02  H                H                DIST-CDC-PAYEE-TYPE
+0000 0848  02  02                                    DIST-CDC-ACH-BENEFICIARY-TYP
+0000 0849  01  01                                    DIST-CDC-JNL-BENEFICIARY-TYP
+0000 0850  01  01                                    DIST-CDC-RMD-IND
+0000 0851  01  01                                    DIST-CDC-INQ-PERSPECTIVE
+0000 0852  01  01                                    DIST-CDC-ORIGIN-ID
+0000 0857  01  01                                    DIST-CDC-EXTERNAL-RID
+0000 0869  01  01                                    DIST-CDC-ALT-NA-DESC
+0000 0873  01  01  1                                 DIST-CDC-ACCT-TYPE
+0000 0879  01  01                                    DIST-CDC-PROCESS-CYMD
+0000 0888  01  01                                    DIST-CDC-VAR-CYMD
+0000 0897  01  01                                    DIST-CDC-CHECK-STATUS-IND
+0000 0898  01  01                                    DIST-CDC-BEGIN-DD2
+0000 0900  01  01                                    DIST-CDC-CHECK-TYPE
+0000 0901  01  01  N                                 DIST-CDC-TRANS-FORMAT
+0000 0902  01  01                                    DIST-CDC-ENTRY-SOURCE
+0000 0905  01  01                                    DIST-CDC-CUSTOMER-AUTH
+0000 0921  01  01                                    DIST-CDC-CLIENT-MEMO
+0000 0945  01  01                                    DIST-CDC-STATUS
+0000 0955  01  01                                    DIST-CDC-ST-MARITAL-STAT
+0000 0956  01  01                                    DIST-CDC-WITH-ALLOWANCE-2
+*******************************************************************************
+*******************************************************************************
+**** RECORD TYPE FREQUENCY TABLE TAB
+****
+****   COL 006-006 = NFS-PWSP-SCHD-TY    (235)
+****   COL 007-007 = NFS-PWSP-PRCS-JAN-I (237)
+****   COL 008-008 = NFS-PWSP-PRCS-FEB-I (238)
+****   COL 009-009 = NFS-PWSP-PRCS-MAR-I (239)
+****   COL 010-010 = NFS-PWSP-PRCS-APR-I (240)
+****   COL 011-011 = NFS-PWSP-PRCS-MAY-I (241)
+****   COL 012-012 = NFS-PWSP-PRCS-JUN-I (242)
+****   COL 013-013 = NFS-PWSP-PRCS-JUL-I (243)
+****   COL 014-014 = NFS-PWSP-PRCS-AUG-I (244)
+****   COL 015-015 = NFS-PWSP-PRCS-SEP-I (245)
+****   COL 016-016 = NFS-PWSP-PRCS-OCT-I (246)
+****   COL 017-017 = NFS-PWSP-PRCS-NOV-I (247)
+****   COL 018-018 = NFS-PWSP-PRCS-DEC-I (248)
+****   COL 019-020 = INPUT FREQ CODE
+****   COL 021-022 = INPUT FREQ MONTH
+****   COL 023-023 = DIST-FREQ-CODE      ***OUTPUT FREQUENCY CODE
+****   COL 024-024 = WARNING SWITCH
+****   COL 027-028 = BUSINESS DAY #2 (FOR PRCS-DY-N TYPE 99 RECORDS)
+************************************************************************
+**********ANNUAL SCHED TYPE ********************************************
+**** *******************  **
+TBLB AYNNNNNNNNNNNAN01AN
+TBLB ANNNNNNNNNNNYAN12AN
+TBLB ANNNNNNNNNNYNAN11AN
+TBLB ANNNNNNNNNYNNAN10AN
+TBLB ANNNNNNNNYNNNAN09AN
+TBLB ANNNNNNNYNNNNAN08AN
+TBLB ANNNNNNYNNNNNAN07AN
+TBLB ANNNNNYNNNNNNAN06AN
+TBLB ANNNNYNNNNNNNAN05AN
+TBLB ANNNYNNNNNNNNAN04AN
+TBLB ANNYNNNNNNNNNAN03AN
+TBLB ANYNNNNNNNNNNAN02AN
+TBLB MYNNNNNNNNNNNAN01AN
+TBLB MNNNNNNNNNNNYAN12AN
+TBLB MNNNNNNNNNNYNAN11AN
+TBLB MNNNNNNNNNYNNAN10AN
+TBLB MNNNNNNNNYNNNAN09AN
+TBLB MNNNNNNNYNNNNAN08AN
+TBLB MNNNNNNYNNNNNAN07AN
+TBLB MNNNNNYNNNNNNAN06AN
+TBLB MNNNNYNNNNNNNAN05AN
+TBLB MNNNYNNNNNNNNAN04AN
+TBLB MNNYNNNNNNNNNAN03AN
+TBLB MNYNNNNNNNNNNAN02AN
+TBLB XYNNNNNNNNNNNAN01AN
+TBLB XNNNNNNNNNNNYAN12AN
+TBLB XNNNNNNNNNNYNAN11AN
+TBLB XNNNNNNNNNYNNAN10AN
+TBLB XNNNNNNNNYNNNAN09AN
+TBLB XNNNNNNNYNNNNAN08AN
+TBLB XNNNNNNYNNNNNAN07AN
+TBLB XNNNNNYNNNNNNAN06AN
+TBLB XNNNNYNNNNNNNAN05AN
+TBLB XNNNYNNNNNNNNAN04AN
+TBLB XNNYNNNNNNNNNAN03AN
+TBLB XNYNNNNNNNNNNAN02AN
+TBLB  NNNNNNNNNNNYAN12AN
+TBLB  NNNNNNNNNNYNAN11AN
+TBLB  NNNNNNNNNYNNAN10AN
+TBLB  NNNNNNNNYNNNAN09AN
+TBLB  NNNNNNNYNNNNAN08AN
+TBLB  NNNNNNYNNNNNAN07AN
+TBLB  NNNNNYNNNNNNAN06AN
+TBLB  NNNNYNNNNNNNAN05AN
+TBLB  NNNYNNNNNNNNAN04AN
+TBLB  NNYNNNNNNNNNAN03AN
+TBLB  NYNNNNNNNNNNAN02AN
+TBLB  YNNNNNNNNNNNAN01AN
+***SEMI-ANNUAL SCHED TYPE **********************************
+**** *******************  **
+TBLB AYNNNNNYNNNNNSA01SN
+TBLB ANYNNNNNYNNNNSA02SN
+TBLB ANNYNNNNNYNNNSA03SN
+TBLB ANNNYNNNNNYNNSA04SN
+TBLB ANNNNYNNNNNYNSA05SN
+TBLB ANNNNNYNNNNNYSA06SN
+TBLB MYNNNNNYNNNNNSA01SN
+TBLB MNYNNNNNYNNNNSA02SN
+TBLB MNNYNNNNNYNNNSA03SN
+TBLB MNNNYNNNNNYNNSA04SN
+TBLB MNNNNYNNNNNYNSA05SN
+TBLB MNNNNNYNNNNNYSA06SN
+TBLB XYNNNNNYNNNNNSA01SN
+TBLB XNYNNNNNYNNNNSA02SN
+TBLB XNNYNNNNNYNNNSA03SN
+TBLB XNNNYNNNNNYNNSA04SN
+TBLB XNNNNYNNNNNYNSA05SN
+TBLB XNNNNNYNNNNNYSA06SN
+TBLB FYNNNNNYNNNNNSA01SN
+TBLB FNYNNNNNYNNNNSA02SN
+TBLB FNNYNNNNNYNNNSA03SN
+TBLB FNNNYNNNNNYNNSA04SN
+TBLB FNNNNYNNNNNYNSA05SN
+TBLB FNNNNNYNNNNNYSA06SN
+TBLB  YNNNNNYNNNNNSA01SN
+TBLB  NYNNNNNYNNNNSA02SN
+TBLB  NNYNNNNNYNNNSA03SN
+TBLB  NNNYNNNNNYNNSA04SN
+TBLB  NNNNYNNNNNYNSA05SN
+TBLB  NNNNNYNNNNNYSA06SN
+***  QUARTERLY SCHED TYPE **********************************
+**** *******************  **
+TBLB QYNNYNNYNNYNNQT07QN
+TBLB QNYNNYNNYNNYNQT08QN
+TBLB QNNYNNYNNYNNYQT06QN
+TBLB MYNNYNNYNNYNNQT07QN
+TBLB MNYNNYNNYNNYNQT08QN
+TBLB MNNYNNYNNYNNYQT06QN
+TBLB AYNNYNNYNNYNNQT07QN
+TBLB ANYNNYNNYNNYNQT08QN
+TBLB ANNYNNYNNYNNYQT06QN
+TBLB XYNNYNNYNNYNNQT07QN
+TBLB XNYNNYNNYNNYNQT08QN
+TBLB XNNYNNYNNYNNYQT06QN
+TBLB  YNNYNNYNNYNNQT07QN
+TBLB  NYNNYNNYNNYNQT08QN
+TBLB  NNYNNYNNYNNYQT06QN
+****MONTHLY SCHED TYPE *******
+**** *******************  **
+TBLB MYYYYYYYYYYYYMO06MN
+TBLB AYYYYYYYYYYYYMO06MN
+TBLB XYYYYYYYYYYYYMO06MN
+TBLB FYYYYYYYYYYYYMO06MN
+TBLB  YYYYYYYYYYYYMO06MN
+****SEMI MONTHLY SCHED TYPE***
+**** *******************  **
+TBLB SYYYYYYYYYYYYSM06EN
+****WEEKLY   *****************
+**** *******************  **
+TBLB WYNNYNNYNNYNNWY06WN
+****DAILY   ******************
+**** *******************  **
+TBLB DYYYYYYYYYYYYDY06DN
+**** FREQUENTLY **************
+**** *******************  **
+**** FYYYYYYYYYYYYMO04MN
+*****SPECIFIC MONTHLY ********
+**** *******************  **
+**** XYYYYYYYYYYYYMO04MN
+*****SPECIFIC QUARTERLY*******
+**** *******************  **
+**** XYNNYNNYNNYNNQT04QN
+****SPECIFIC ANNUAL      *****
+**** *******************  **
+**** XYNNYNNYNNYNNAN08AN
+**** XNNNNNNNNNNNYAN08AN
+**** XNNNNNYNNNNNNAN08AN
+*****BI-MONTHLY        *******
+**** *******************  **
+TBLB MYNYNYNYNYNYNBM06IN
+TBLB AYNYNYNYNYNYNBM06IN
+TBLB XYNYNYNYNYNYNBM06IN
+TBLB FYNYNYNYNYNYNBM06IN
+TBLB  YNYNYNYNYNYNBM06IN
+**** RECORD TYPE FREQUENCY TABLE TAB
+****
+****   COL 006-006 = NFS-PWSP-SCHD-TY    (235)
+****   COL 007-007 = NFS-PWSP-PRCS-JAN-I (237)
+TBLC JNL    H
+TBLC IRACC  H

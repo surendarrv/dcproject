@@ -1,0 +1,150 @@
+************************************************************************
+****
+**** DATA FILE FOR DIST - LPL/GREAT WESTERN BANK (RAY)
+****
+************************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+************************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99)
+****   COL 16-30     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 33-47     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 50-77     DCDLPCH FIELD NAME
+****
+****   IMPORTANT NOTE:  THE ORDER OF THE '0000' CARDS IS IMPORTANT.
+****   --------------   THEY ARE PROCESSED IN THE ORDER THEY ARE IN.
+****
+**** ****  **  ***************  ***************  ****************************
+0000 0205  01                                    DIST-CDC-ACCT
+0000 0214  02                                    DIST-CDC-TAX-ID
+0000 0223  01                                    DIST-CDC-NEW-TAX-ID
+0000 0651  01                                    DIST-CDC-JNL-ACCT
+0000 0678  01                                    DIST-CDC-ACH-ABA
+0000 0232  01                                    DIST-CDC-SOURCE
+0000 0239  02                                    DIST-CDC-FREQUENCY
+0000 0240  02                                    DIST-CDC-BEGIN-CYMD
+0000 0249  01                                    DIST-CDC-END-CYMD
+0000 0258  01                                    DIST-CDC-DISTRIBUTION-AMT
+0000 0273  01                                    DIST-CDC-WITH-CODE-1
+0000 0274  01                                    DIST-CDC-WITH-PCT-1
+0000 0281  01                                    DIST-CDC-WITH-AMOUNT-1
+0000 0296  01                                    DIST-CDC-WITH-ALLOWANCE-1
+0000 0299  01                                    DIST-CDC-WITH-CODE-2
+0000 0300  01                                    1IST-CDC-WITH-PCT-2
+0000 0307  01                                    DIST-CDC-WITH-AMOUNT-2
+0000 0323  01                                    DIST-CDC-ALT-NALINE-1
+0000 0353  01                                    DIST-CDC-ALT-NALINE-2
+0000 0383  01                                    DIST-CDC-ALT-NALINE-3
+0000 0413  01                                    DIST-CDC-ALT-NALINE-4
+0000 0443  01                                    DIST-CDC-ALT-NALINE-5
+0000 0473  01                                    DIST-CDC-ALT-NALINE-6
+0000 0503  01                                    DIST-CDC-DESC-1
+0000 0527  01                                    DIST-CDC-ADDENDA
+0000 0607  01                                    DIST-CDC-ADD-CYMD
+0000 0616  01                                    DIST-CDC-UPDATE-VYMD
+0000 0625  01                                    DIST-CDC-UPDATE-WHO
+0000 0628  01                                    DIST-CDC-UPDATE-TERMINAL
+0000 0632  01                                    DIST-CDC-VARIABLE-AMT
+0000 0647  01                                    DIST-CDC-MARITAL-STAT
+0000 0648  01                                    DIST-CDC-STATE-CODE
+0000 0650  01                                    DIST-CDC-DIV-CODE
+0000 0651  01                                    DIST-CDC-JNL-ACCT
+0000 0660  01                                    DIST-CDC-INT-CODE
+0000 0661  01                                    DIST-CDC-OTHER-INCOME
+0000 0662  01                                    DIST-CDC-FREE-CREDIT
+0000 0663  01                                    DIST-CDC-CAP-GAINS
+0000 0664  01                                    DIST-CDC-JNL-ACCTTYPE
+0000 0665  01                                    DIST-CDC-JNL-SOURCE
+0000 0670  01                                    DIST-CDC-PRIN
+0000 0671  01                                    DIST-CDC-ROC
+0000 0672  01                                    DIST-CDC-PDST
+0000 0673  01                                    DIST-CDC-ROP
+0000 0674  01                                    DIST-CDC-LIQ
+0000 0675  02                                    DIST-CDC-DDIV
+0000 0676  01                                    DIST-CDC-MMF-DIV
+0000 0677  01                                    DIST-CDC-MMF-BAL
+0000 0678  01                                    DIST-CDC-ACH-ABA
+0000 0687  01                                    DIST-CDC-ACH-ACT
+0000 0704  01                                    DIST-CDC-ACH-CHK-SAV
+0000 0705  02                                    DIST-CDC-ACH-CUST-NAME
+0000 0727  01  Y                                 DIST-CDC-ACH-MAIL-ADVISE
+0000 0728  01                                    DIST-CDC-ACH-PRENOTE-CYMD
+0000 0737  01  20220725                          DIST-CDC-ACH-LIVE-CYMD
+0000 0746  01                                    DIST-CDC-TAXID-FORMAT
+0000 0747  01  0                                 DIST-CDC-ACH-TRANS-NO
+0000 0748  01                                    DIST-CDC-CINTR
+0000 0749  01                                    DIST-CDC-ACH-PRENOTE-FIRM
+0000 0752  01                                    DIST-CDC-ACH-PRENOTE-ACCT
+0000 0761  01                                    DIST-CDC-MAT
+0000 0762  01                                    DIST-CDC-ODO-AMT
+0000 0777  01                                    DIST-CDC-ADVICE-MIN-AMT
+0000 0781  01                                    DIST-CDC-DSI
+0000 0782  01                                    DIST-CDC-OLD-DSI
+0000 0783  01                                    DIST-CDC-DESC-2
+0000 0807  01                                    DIST-CDC-DESC-3
+0000 0831  01                                    DIST-CDC-UPDATE-RACF-ID
+0000 0839  01                                    DIST-CDC-UPDATE-SOURCE
+0000 0847  01  A                A                DIST-CDC-PAYEE-TYPE
+0000 0848  01  H                H                DIST-CDC-ACH-BENEFICIARY-TYP
+0000 0849  01  H                A                DIST-CDC-JNL-BENEFICIARY-TYP
+0000 0850  01                                    DIST-CDC-RMD-IND
+0000 0851  01                                    DIST-CDC-INQ-PERSPECTIVE
+0000 0852  01                                    DIST-CDC-ORIGIN-ID
+0000 0857  01                                    DIST-CDC-EXTERNAL-RID
+0000 0869  01                                    DIST-CDC-ALT-NA-DESC
+0000 0873  01                                    DIST-CDC-ACCT-TYPE
+0000 0879  01                                    DIST-CDC-PROCESS-CYMD
+0000 0888  01                                    DIST-CDC-VAR-CYMD
+0000 0897  01                                    DIST-CDC-CHECK-STATUS-IND
+0000 0898  01                                    DIST-CDC-BEGIN-DD2
+0000 0900  01                                    DIST-CDC-CHECK-TYPE
+0000 0901  01                                    DIST-CDC-TRANS-FORMAT
+0000 0902  01                                    DIST-CDC-ENTRY-SOURCE
+0000 0905  01                                    DIST-CDC-CUSTOMER-AUTH
+0000 0921  01                                    DIST-CDC-CLIENT-MEMO
+0000 0945  01                                    DIST-CDC-STATUS
+0000 0955  01                                    DIST-CDC-ST-MARITAL-STAT
+0000 0956  01                                    DIST-CDC-WITH-ALLOWANCE-2
+***********************************************************************
+****
+**** RECORD TYPE 0239 (CONVERT FREQUENCY)
+****
+****   COL 06-07     RJ-PCHDFT-FREQ
+****   COL 10-11     OP-RJ-PCHDFT-NXT-MNTH
+****   COL 14-15     RJ-PCHDFT-NXT-MNTH
+****   COL 18-19     OP-RJ-PCHDFT-FREQ-DAY1
+****   COL 22-23     RJ-PCHDFT-FREQ-DAY1
+****   COL 26-26     SACH-PCH-FREQUENCY
+****   COL 29-32     SACH-PCH-BEGIN-CYMD (YEAR)
+****   COL 35-36     SACH-PCH-BEGIN-CYMD (MONTH)
+****   COL 39-39     PRINT ON WARNING REPORT?  (Y OR N)
+****
+**** **  **  **  *  ****  **  *                                         *****
+**** A   GE  18  A  2021  04
+**** A   LT  18  A  2020  05
+****                                                                    *****
+**** SA  GE  18  S  2020  04
+**** SA  LT  18  S  2020  10
+****                                                                    *****
+**** Q   GE  18  Q  2020  04
+**** Q   LT  18  Q  2020  07
+****                                                                    *****
+**** M   GE  18  M  2020  04
+**** M   LT  18  M  2020  05
+****                                                                    *****
+**** #   ##      M  2020  04  Y
+****                                                                    *****
+************************************************************************
+**** RECORD TYPE 705D
+****
+****   COL 007-030 = SACH-PCH-CUST-NAME SCAN TEXT
+****
+****  ************************
+705D  RIRA
+705D  IRA
+705D  SEP
+****

@@ -1,14 +1,21 @@
-from flask import Flask, request, render_template, jsonify, send_file
+from flask import Flask, request, render_template, jsonify, send_file, session
 import os
 import tempfile
 import re
+import uuid
+from datetime import datetime
 from converter import ExcelToTextConverter
+from simple_adaptive_agent import SimpleAdaptiveAgent
 
 app = Flask(__name__)
+app.secret_key = 'excel-to-text-converter-with-learning'
+
+# Initialize the learning agent
+agent = SimpleAdaptiveAgent()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('dashboard.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -54,20 +61,26 @@ def upload_file():
                         'column_name': prefix_info['column_name'],
                         'temp_path': temp_path,  # Pass the temp path for later use
                         'filename': file.filename,
-                        'message': f"🔍 Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
+                        'message': f"Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
                     })
                 else:
                     # No prefix detected, proceed with normal conversion
                     converted_text = converter.convert_excel_to_text(temp_path)
+                    
+                    # Apply learned auto-corrections
+                    corrected_text = agent.auto_correct_engine.auto_correct(converted_text, {
+                        'source': 'excel_converter',
+                        'mode': 'DEMO/IRAS/DIST-normal'
+                    })
                     
                     # Clean up temp file
                     os.unlink(temp_path)
                     
                     return jsonify({
                         'success': True,
-                        'preview': converted_text,
+                        'preview': corrected_text,
                         'filename': file.filename,
-                        'message': '🎉 MAPPING sheet found successfully!'
+                        'message': ' MAPPING sheet found successfully with auto-corrections!'
                     })
             elif mode == 'DIST':
                 # DIST mode - show coming soon message
@@ -76,7 +89,7 @@ def upload_file():
                 
                 return jsonify({
                     'success': False,
-                    'error': '🚧 DIST mode is coming soon! Please use "DEMO", "IRAS", or "XYZA" mode for now.'
+                    'error': ' DIST mode is coming soon! Please use "DEMO", "IRAS", or "XYZA" mode for now.'
                 })
             elif mode == 'DEMO-NFS':
                 # DEMO-NFS mode - same logic as DEMO but with different table reference extraction
@@ -92,18 +105,24 @@ def upload_file():
                         'column_name': prefix_info['column_name'],
                         'temp_path': temp_path,
                         'filename': file.filename,
-                        'message': f"🔍 Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
+                        'message': f" Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
                     })
                 else:
                     # No prefix detected, proceed with DEMO-NFS conversion
                     converted_text = converter.convert_excel_to_text(temp_path, mode='DEMO-NFS')
+                    
+                    # Apply learned auto-corrections
+                    corrected_text = agent.auto_correct_engine.auto_correct(converted_text, {
+                        'source': 'excel_converter',
+                        'mode': 'DEMO-NFS'
+                    })
                     
                     # Clean up temp file
                     os.unlink(temp_path)
                     
                     return jsonify({
                         'success': True,
-                        'preview': converted_text,
+                        'preview': corrected_text,
                         'filename': file.filename
                     })
             elif mode == 'XYZA':
@@ -113,7 +132,7 @@ def upload_file():
                 
                 return jsonify({
                     'success': False,
-                    'error': '🚧 XYZA mode is coming soon! Please use "DEMO", "DIST", or "IRAS" mode for now.'
+                    'error': ' XYZA mode is coming soon! Please use "DEMO", "DIST", or "IRAS" mode for now.'
                 })
             elif mode == 'IRAS_WITH_VARIABLE':
                 # IRAS mode - same logic as DEMO but without detailed table data extraction
@@ -129,20 +148,26 @@ def upload_file():
                         'column_name': prefix_info['column_name'],
                         'temp_path': temp_path,
                         'filename': file.filename,
-                        'message': f"🔍 Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
+                        'message': f" Detected prefix '{prefix_info['prefix']}' in column header: '{prefix_info['column_name']}'"
                     })
                 else:
                     # No prefix detected, proceed with IRAS conversion (mapping fields only)
                     converted_text = converter.convert_excel_to_text(temp_path, mode='IRAS')
+                    
+                    # Apply learned auto-corrections
+                    corrected_text = agent.auto_correct_engine.auto_correct(converted_text, {
+                        'source': 'excel_converter',
+                        'mode': 'IRAS'
+                    })
                     
                     # Clean up temp file
                     os.unlink(temp_path)
                     
                     return jsonify({
                         'success': True,
-                        'preview': converted_text,
+                        'preview': corrected_text,
                         'filename': file.filename,
-                        'message': '🎉 IRAS mode - MAPPING sheet found successfully!'
+                        'message': ' IRAS mode - MAPPING sheet found successfully!'
                     })
             else:
                 # For DIST_WITH_VARIABLE mode
@@ -151,7 +176,7 @@ def upload_file():
                 
                 return jsonify({
                     'success': False,
-                    'error': f'🚧 {mode.replace("_", " ")} mode is coming soon! Please use "DEMO", "IRAS", or "XYZA" mode for now.'
+                    'error': f' {mode.replace("_", " ")} mode is coming soon! Please use "DEMO", "IRAS", or "XYZA" mode for now.'
                 })
             
         except Exception as e:
@@ -162,15 +187,15 @@ def upload_file():
             error_msg = str(e)
             if "MAPPING sheet not found" in error_msg:
                 return jsonify({
-                    'error': '❌ MAPPING sheet not found in Excel file. Please ensure your Excel file contains a sheet named "MAPPING".'
+                    'error': ' MAPPING sheet not found in Excel file. Please ensure your Excel file contains a sheet named "MAPPING".'
                 }), 400
             else:
                 return jsonify({
-                    'error': f'❌ Error processing file: {error_msg}'
+                    'error': f' Error processing file: {error_msg}'
                 }), 400
     
     except Exception as e:
-        return jsonify({'error': f'❌ Upload failed: {str(e)}'}), 500
+        return jsonify({'error': f' Upload failed: {str(e)}'}), 500
 
 @app.route('/convert_with_prefix', methods=['POST'])
 def convert_with_prefix():
@@ -188,13 +213,20 @@ def convert_with_prefix():
             mode = data.get('mode', 'DEMO/IRAS/DIST-normal')
             converted_text = converter.convert_excel_to_text(temp_path, apply_prefix, mode=mode)
             
+            # Apply learned auto-corrections
+            corrected_text = agent.auto_correct_engine.auto_correct(converted_text, {
+                'source': 'excel_converter',
+                'mode': mode,
+                'prefix_applied': apply_prefix
+            })
+            
             # Clean up temp file
             os.unlink(temp_path)
             
             return jsonify({
                 'success': True,
-                'preview': converted_text,
-                'message': f'🎉 Conversion completed {"with" if apply_prefix else "without"} prefix!'
+                'preview': corrected_text,
+                'message': f' Conversion completed {"with" if apply_prefix else "without"} prefix and auto-corrections!'
             })
             
         except Exception as e:
@@ -203,11 +235,11 @@ def convert_with_prefix():
                 os.unlink(temp_path)
             
             return jsonify({
-                'error': f'❌ Error processing file: {str(e)}'
+                'error': f' Error processing file: {str(e)}'
             }), 400
     
     except Exception as e:
-        return jsonify({'error': f'❌ Conversion failed: {str(e)}'}), 500
+        return jsonify({'error': f' Conversion failed: {str(e)}'}), 500
 
 @app.route('/download', methods=['POST'])
 def download_file():
@@ -230,6 +262,78 @@ def download_file():
     
     except Exception as e:
         return jsonify({'error': f'Download failed: {str(e)}'}), 500
+
+@app.route('/api/learn-from-edit', methods=['POST'])
+def learn_from_edit():
+    """Learn from pencil edit corrections"""
+    try:
+        data = request.get_json()
+        original_output = data.get('original_output', '')
+        corrected_output = data.get('corrected_output', '')
+        context = data.get('learning_context', {})
+        
+        user_id = session.get('user_id', str(uuid.uuid4()))
+        
+        if not original_output or not corrected_output:
+            return jsonify({
+                'success': False,
+                'error': 'Both original and corrected output required'
+            }), 400
+        
+        # Add pencil edit context
+        context.update({
+            'feedback_type': 'pencil_edit',
+            'edit_method': 'inline_editing',
+            'source': 'excel_converter'
+        })
+        
+        # Process the correction
+        agent.process_user_correction(
+            original_output=original_output,
+            corrected_output=corrected_output,
+            user_id=user_id,
+            context=context
+        )
+        
+        # Update session
+        session['user_id'] = user_id
+        
+        # Get learning info for response
+        stats = agent.get_learning_stats()
+        latest_pattern = None
+        if stats['patterns']:
+            latest_pattern = max(stats['patterns'], 
+                               key=lambda p: p.get('usage_count', 0))
+        
+        return jsonify({
+            'success': True,
+            'message': 'Learning completed successfully',
+            'confidence': latest_pattern['confidence'] if latest_pattern else 0.5,
+            'pattern_id': latest_pattern['id'] if latest_pattern else 'new',
+            'timestamp': datetime.now().isoformat()
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/api/stats')
+def get_learning_stats():
+    """Get learning statistics"""
+    try:
+        stats = agent.get_learning_stats()
+        return jsonify({
+            'success': True,
+            'stats': stats
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 @app.route('/cobol-generator')
 def cobol_generator():

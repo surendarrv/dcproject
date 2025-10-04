@@ -1,0 +1,164 @@
+************************************************************************
+****
+**** DATA FILE FOR LPL/PWI DIST (PERSHING)
+****
+************************************************************************
+****  FILE CONVERSION SUMMARY OF RECORD TYPES USED:
+****
+****  0000 - EDIT CONTROL FIELDS
+************************************************************************
+**** RECORD TYPE 0000 - EDIT CONTROL FIELDS
+****
+****   COL 06-09     FIELD STARTING POSITION
+****   COL 12-13     MAPPING OPTION (01 THRU 99) FOR FIXED DIST RECORD
+****   COL 16-17     MAPPING OPTION (01 THRU 99) FOR VARIABLE DIST RECORD
+****   COL 20-34     DEFAULT VALUE #1 (IF APPLICABLE)
+****   COL 37-51     DEFAULT VALUE #2 (IF APPLICABLE)
+****   COL 54-81     DCDLPCH FIELD NAME
+****
+****   IMPORTANT NOTE:  THE ORDER OF THE '0000' CARDS IS IMPORTANT.
+****   --------------   THEY ARE PROCESSED IN THE ORDER THEY ARE IN.
+****
+**** ****  **  **  ***************  ***************  ****************************
+0000 0205  01  01                                    DIST-CDC-ACCT
+0000 0214  02  02                                    DIST-CDC-TAX-ID
+0000 0223  01  01                                    DIST-CDC-NEW-TAX-ID
+0000 0651  01  01                                    DIST-CDC-JNL-ACCT
+0000 0678  01  01                                    DIST-CDC-ACH-ABA
+0000 0232  02  02                                    DIST-CDC-SOURCE
+0000 0239  01  01                                    DIST-CDC-FREQUENCY
+0000 0240  01  01                                    DIST-CDC-BEGIN-CYMD
+0000 0249  01  01                                    DIST-CDC-END-CYMD
+0000 0258  01  01                                    DIST-CDC-DISTRIBUTION-AMT
+0000 0273  01  01                                    DIST-CDC-WITH-CODE-1
+0000 0274  01  01                                    DIST-CDC-WITH-PCT-1
+0000 0281  02  02                                    DIST-CDC-WITH-AMOUNT-1
+0000 0296  01  01                                    DIST-CDC-WITH-ALLOWANCE-1
+0000 0299  01  01                                    DIST-CDC-WITH-CODE-2
+0000 0300  01  01                                    DIST-CDC-WITH-PCT-2
+0000 0307  02  02                                    DIST-CDC-WITH-AMOUNT-2
+0000 0323  01  01                                    DIST-CDC-ALT-NALINE-1
+0000 0353  01  01                                    DIST-CDC-ALT-NALINE-2
+0000 0383  01  01                                    DIST-CDC-ALT-NALINE-3
+0000 0413  01  01                                    DIST-CDC-ALT-NALINE-4
+0000 0443  01  01                                    DIST-CDC-ALT-NALINE-5
+0000 0473  01  01                                    DIST-CDC-ALT-NALINE-6
+0000 0503  01  01                                    DIST-CDC-DESC-1
+0000 0527  01  01                                    DIST-CDC-ADDENDA
+0000 0607  01  01                                    DIST-CDC-ADD-CYMD
+0000 0616  01  01                                    DIST-CDC-UPDATE-VYMD
+0000 0625  01  01                                    DIST-CDC-UPDATE-WHO
+0000 0628  01  01                                    DIST-CDC-UPDATE-TERMINAL
+0000 0632  01  01                                    DIST-CDC-VARIABLE-AMT
+0000 0647  01  01                                    DIST-CDC-MARITAL-STAT
+0000 0648  01  01                                    DIST-CDC-STATE-CODE
+0000 0650  01  02                                    DIST-CDC-DIV-CODE
+0000 0660  01  02                                    DIST-CDC-INT-CODE
+0000 0661  01  01                                    DIST-CDC-OTHER-INCOME
+0000 0662  01  01                                    DIST-CDC-FREE-CREDIT
+0000 0663  01  02                                    DIST-CDC-CAP-GAINS
+0000 0664  01  01                                    DIST-CDC-JNL-ACCTTYPE
+0000 0665  01  01                                    DIST-CDC-JNL-SOURCE
+0000 0670  01  01                                    DIST-CDC-PRIN
+0000 0671  01  01                                    DIST-CDC-ROC
+0000 0672  01  01                                    DIST-CDC-PDST
+0000 0673  01  01                                    DIST-CDC-ROP
+0000 0674  01  01                                    DIST-CDC-LIQ
+0000 0675  01  02                                    DIST-CDC-DDIV
+0000 0676  01  01                                    DIST-CDC-MMF-DIV
+0000 0677  01  01                                    DIST-CDC-MMF-BAL
+0000 0687  01  01                                    DIST-CDC-ACH-ACT
+0000 0704  01  01                                    DIST-CDC-ACH-CHK-SAV
+0000 0705  02  02                                    DIST-CDC-ACH-CUST-NAME
+0000 0727  01  01  Y                                 DIST-CDC-ACH-MAIL-ADVISE
+0000 0728  01  01                                    DIST-CDC-ACH-PRENOTE-CYMD
+0000 0737  01  01  20240530                          DIST-CDC-ACH-LIVE-CYMD
+0000 0746  01  01                                    DIST-CDC-TAXID-FORMAT
+0000 0747  01  01                                    DIST-CDC-ACH-TRANS-NO
+0000 0748  01  01                                    DIST-CDC-CINTR
+0000 0749  01  01                                    DIST-CDC-ACH-PRENOTE-KEY
+0000 0761  01  01                                    DIST-CDC-MAT
+0000 0762  01  01                                    DIST-CDC-ODO-AMT
+0000 0777  01  01                                    DIST-CDC-ADVICE-MIN-AMT
+0000 0781  01  01                                    DIST-CDC-DSI
+0000 0782  01  01                                    DIST-CDC-OLD-DSI
+0000 0783  01  01                                    DIST-CDC-DESC-2
+0000 0807  01  01                                    DIST-CDC-DESC-3
+0000 0831  01  01                                    DIST-CDC-UPDATE-RACF-ID
+0000 0839  01  01                                    DIST-CDC-UPDATE-SOURCE
+0000 0847  01  01  H                H                DIST-CDC-PAYEE-TYPE
+0000 0848  01  01  H                H                DIST-CDC-ACH-BENEFICIARY-TYP
+0000 0849  01  01  H                H                DIST-CDC-JNL-BENEFICIARY-TYP
+0000 0850  01  01                                    DIST-CDC-RMD-IND
+0000 0851  01  01                                    DIST-CDC-INQ-PERSPECTIVE
+0000 0852  01  01                                    DIST-CDC-ORIGIN-ID
+0000 0857  01  01                                    DIST-CDC-EXTERNAL-RID
+0000 0869  01  01                                    DIST-CDC-ALT-NA-DESC
+0000 0873  01  01                                    DIST-CDC-ACCT-TYPE
+0000 0879  01  01                                    DIST-CDC-PROCESS-CYMD
+0000 0888  01  01                                    DIST-CDC-VAR-CYMD
+0000 0897  01  01                                    DIST-CDC-CHECK-STATUS-IND
+0000 0898  01  01                                    DIST-CDC-BEGIN-DD2
+0000 0900  01  01                                    DIST-CDC-CHECK-TYPE
+0000 0901  01  01                                    DIST-CDC-TRANS-FORMAT
+0000 0902  01  01                                    DIST-CDC-ENTRY-SOURCE
+0000 0905  01  01                                    DIST-CDC-CUSTOMER-AUTH
+0000 0921  01  01                                    DIST-CDC-CLIENT-MEMO
+0000 0945  01  01                                    DIST-CDC-STATUS
+0000 0955  01  01                                    DIST-CDC-ST-MARITAL-STAT
+0000 0956  01  01                                    DIST-CDC-WITH-ALLOWANCE-2
+************************************************************************
+****
+**** RECORD TYPE 232A (DIST-CDC-SOURCE)
+****
+****   COL 006-009 = PER-AMP-MPI-PAM-RQST-RSNTYCD
+****   COL 011-011 = NAINST
+****   COL 013-017 = DIST-CDC-SOURCE  (232)
+****   COL 019-019 = WARNING (Y/N)
+****
+**** **** * ***** *
+****      I REG   N
+****        CCHK  N
+**** NOR  I REG   N
+**** SES  I PRERE N
+**** DEA  I DEC2  N
+**** PRE  I PREM  N
+**** DIS  I DAB2  N
+**** NA   I       N
+**** REW  I RHE2  N
+****
+***********************************************************************
+****
+**** RECORD TYPE 239A (CONVERT FREQUENCY)
+****
+****   COL 006-006 = PER-AMP-MPI-PAM-FREQ
+****   COL 009-009 = DIST-CDC-FREQUENCY   (239)
+****   COL 011-011 = WARNING (Y/N OR SPACES)
+****
+**** ** * *
+239A A  A
+239A BM I
+239A M  M
+239A Q  Q
+239A SA S
+239A SM E
+239A UR D
+239A W1 W
+239A W2 W
+239A W3 W
+239A W4 W
+239A W5 W
+239A ** M       --> (DEFAULT IS "M")
+****
+************************************************************************
+****
+**** RECORD TYPE 665A (DIST-CDC-JNL-SOURCE)
+****
+****   COL 006-009 = PER-AMP-MPI-PAM-RQST-RSNTYCD
+****   COL 011-015 = DIST-CDC-JNL-SOURCE  (665)
+****
+**** **** *****
+**** CON  IRACC
+**** **** IRACC      --> (DEFAULT IS "IRACC")
+****
+************************************************************************

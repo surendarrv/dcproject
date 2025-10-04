@@ -280,6 +280,253 @@
         .preview-content::-webkit-scrollbar-thumb:hover {
             background: #00cc00;
         }
+        
+        /* Pencil Edit Learning Styles */
+        .preview-content.editable {
+            border: 2px solid #667eea;
+            background: #001a00;
+        }
+        
+        .edit-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .learning-hint {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-size: 14px;
+            animation: slideIn 0.3s ease-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hint-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .hint-content button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .hint-content button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .learning-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .prompt-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .correction-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .original {
+            margin-bottom: 15px;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: #000;
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .corrected {
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background: #000;
+            color: #00ff00;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #667eea;
+        }
+        
+        .prompt-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .prompt-actions button {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .learning-progress {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .learning-success {
+            text-align: center;
+            color: #28a745;
+        }
+        
+        .learning-stats {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+        
+        /* Git-diff style comparison */
+        .diff-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .diff-header {
+            background: #e9ecef;
+            padding: 10px 15px;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: bold;
+        }
+        
+        .diff-line {
+            padding: 2px 15px;
+            white-space: pre-wrap;
+            border-left: 3px solid transparent;
+        }
+        
+        .diff-line-removed {
+            background-color: #ffeef0;
+            border-left-color: #d73a49;
+            color: #d73a49;
+        }
+        
+        .diff-line-added {
+            background-color: #e6ffed;
+            border-left-color: #28a745;
+            color: #28a745;
+        }
+        
+        .diff-line-context {
+            background-color: #fff;
+            color: #586069;
+        }
+        
+        .diff-line-number {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+            margin-right: 10px;
+            opacity: 0.5;
+        }
+        
+        .learn-button {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        
+        .learn-button:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: translateY(-1px);
+        }
+        
+        .learn-button.show {
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -292,8 +539,24 @@
         <div class="upload-section">
             <div class="file-type">
                 <div class="radio-group">
-                    <input type="radio" id="demo" name="fileType" value="DEMO" checked>
+                    <input type="radio" id="demo" name="fileType" value="DEMO/IRAS/DIST-normal" checked>
                     <label for="demo" class="radio-label">DEMO</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="demoNfs" name="fileType" value="DEMO-NFS">
+                    <label for="demoNfs" class="radio-label">DEMO-NFS</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="dist" name="fileType" value="DIST">
+                    <label for="dist" class="radio-label">DIST</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="irasVariable" name="fileType" value="IRAS_WITH_VARIABLE">
+                    <label for="irasVariable" class="radio-label">IRAS</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="xyza" name="fileType" value="XYZA">
+                    <label for="xyza" class="radio-label">XYZA</label>
                 </div>
             </div>
             
@@ -312,9 +575,13 @@
         <div class="preview-section" id="previewSection">
             <div class="preview-header">
                 <div class="preview-title">Output Preview</div>
-                <button class="download-btn" id="downloadBtn" onclick="downloadFile()">
-                    Download TXT
-                </button>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="edit-btn" id="pencilEditBtn" onclick="enablePencilEdit()" title="Edit output">✏️ Edit</button>
+                    <button class="learn-button" id="learnBtn" onclick="showLearningModal()" title="Teach the agent from your edits">🧠 Learn</button>
+                    <button class="download-btn" id="downloadBtn" onclick="downloadFile()">
+                        Download TXT
+                    </button>
+                </div>
             </div>
             
             <div class="stats" id="stats">
@@ -353,8 +620,12 @@
                 return;
             }
 
+            // Get selected mode
+            const selectedMode = document.querySelector('input[name="fileType"]:checked').value;
+
             const formData = new FormData();
             formData.append('file', file);
+            formData.append('mode', selectedMode);
 
             uploadBtn.disabled = true;
             uploadBtn.textContent = 'Converting...';
@@ -370,6 +641,9 @@
 
                 if (data.success) {
                     showPreview(data.preview, data.filename, data.message);
+                } else if (data.prefix_detected) {
+                    // Show prefix confirmation dialog
+                    showPrefixConfirmation(data);
                 } else {
                     showError(data.error);
                 }
@@ -458,6 +732,552 @@
             })
             .catch(error => {
                 showError('Download failed: ' + error.message);
+            });
+        }
+
+        // Pencil Edit Learning Functions
+        let originalContentForEdit = '';
+        let hasUnsavedChanges = false;
+        
+        function enablePencilEdit() {
+            const outputText = document.getElementById('previewContent');
+            const pencilBtn = document.getElementById('pencilEditBtn');
+            const learnBtn = document.getElementById('learnBtn');
+            
+            if (!currentContent.trim()) {
+                showError('No output to edit. Please convert a file first.');
+                return;
+            }
+            
+            originalContentForEdit = currentContent;
+            outputText.contentEditable = true;
+            outputText.classList.add('editable');
+            outputText.focus();
+            
+            // Update button
+            pencilBtn.textContent = '💾 Save Changes';
+            pencilBtn.title = 'Save changes';
+            pencilBtn.onclick = finishPencilEdit;
+            
+            // Hide learn button during editing
+            learnBtn.classList.remove('show');
+            hasUnsavedChanges = false;
+            
+            // Setup key bindings
+            setupEditKeyBindings(outputText);
+            
+            showMessage('Edit mode enabled. Make your changes and click Save Changes when done.', 'success');
+        }
+        
+        function setupEditKeyBindings(outputElement) {
+            // Detect Enter key or Escape
+            outputElement.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    finishPencilEdit();
+                }
+                if (e.key === 'Escape') {
+                    cancelPencilEdit();
+                }
+            });
+        }
+        
+        function finishPencilEdit() {
+            const outputText = document.getElementById('previewContent');
+            const corrected = outputText.textContent.trim();
+            const pencilBtn = document.getElementById('pencilEditBtn');
+            const learnBtn = document.getElementById('learnBtn');
+            
+            // Update current content
+            currentContent = corrected;
+            
+            // Disable editing
+            outputText.contentEditable = false;
+            outputText.classList.remove('editable');
+            
+            // Reset edit button
+            pencilBtn.textContent = '✏️ Edit';
+            pencilBtn.title = 'Edit output';
+            pencilBtn.onclick = enablePencilEdit;
+            
+            // Check if there are changes
+            if (originalContentForEdit !== corrected) {
+                hasUnsavedChanges = true;
+                learnBtn.classList.add('show');
+                showMessage('Changes saved! Click "Learn" button to teach the agent from your edits.', 'success');
+            } else {
+                hasUnsavedChanges = false;
+                learnBtn.classList.remove('show');
+                showMessage('No changes detected.', 'error');
+            }
+        }
+        
+        function cancelPencilEdit() {
+            const outputText = document.getElementById('previewContent');
+            const pencilBtn = document.getElementById('pencilEditBtn');
+            const learnBtn = document.getElementById('learnBtn');
+            
+            // Restore original content
+            outputText.textContent = originalContentForEdit;
+            outputText.contentEditable = false;
+            outputText.classList.remove('editable');
+            
+            // Reset buttons
+            pencilBtn.textContent = '✏️ Edit';
+            pencilBtn.title = 'Edit output';
+            pencilBtn.onclick = enablePencilEdit;
+            
+            learnBtn.classList.remove('show');
+            hasUnsavedChanges = false;
+            
+            showMessage('Edit cancelled. Original content restored.', 'error');
+        }
+        
+        function promptForLearningWithDiff(original, corrected, diffHtml) {
+            // Create learning prompt modal with git-diff style
+            const prompt = document.createElement('div');
+            prompt.className = 'learning-prompt';
+            prompt.innerHTML = `
+                <div class="prompt-content">
+                    <h4>🧠 Teach the Agent from Your Edits</h4>
+                    <p>Review the exact changes you made and decide if the agent should learn from them:</p>
+                    ${diffHtml}
+                    <div class="prompt-actions">
+                        <button class="btn-primary" onclick="acceptLearningFromDiff(this)">
+                            ✅ Yes, learn from these changes
+                        </button>
+                        <button class="btn-secondary" onclick="declineLearning(this)">
+                            ❌ No, don't learn from this
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add to page
+            document.body.appendChild(prompt);
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        async function acceptLearningFromDiff(buttonElement) {
+            console.log('acceptLearningFromDiff called');
+            const prompt = buttonElement.closest('.learning-prompt');
+            
+            try {
+                // Use stored original and current content
+                const original = originalContentForEdit;
+                const corrected = currentContent;
+                
+                console.log('Original content length:', original ? original.length : 'undefined');
+                console.log('Corrected content length:', corrected ? corrected.length : 'undefined');
+                
+                if (!original || !corrected) {
+                    throw new Error('Missing original or corrected content');
+                }
+                
+                // First, analyze the changes and show summary
+                const changeSummary = analyzeChanges(original, corrected);
+                console.log('Change summary:', changeSummary);
+                showLearningSummary(prompt, changeSummary, original, corrected);
+                
+            } catch (error) {
+                console.error('Learning analysis error:', error);
+                showLearningError(prompt, error.message);
+            }
+        }
+        
+        function analyzeChanges(original, corrected) {
+            const originalLines = original.split('\n');
+            const correctedLines = corrected.split('\n');
+            
+            let linesChanged = 0;
+            let linesAdded = 0;
+            let linesRemoved = 0;
+            let patterns = [];
+            
+            const maxLines = Math.max(originalLines.length, correctedLines.length);
+            
+            for (let i = 0; i < maxLines; i++) {
+                const originalLine = originalLines[i] || '';
+                const correctedLine = correctedLines[i] || '';
+                
+                if (originalLine !== correctedLine) {
+                    if (originalLine && correctedLine) {
+                        linesChanged++;
+                        // Detect patterns in changes
+                        const pattern = detectPattern(originalLine, correctedLine);
+                        if (pattern) {
+                            patterns.push(pattern);
+                        }
+                    } else if (correctedLine && !originalLine) {
+                        linesAdded++;
+                    } else if (originalLine && !correctedLine) {
+                        linesRemoved++;
+                    }
+                }
+            }
+            
+            return {
+                linesChanged,
+                linesAdded,
+                linesRemoved,
+                patterns,
+                totalChanges: linesChanged + linesAdded + linesRemoved
+            };
+        }
+        
+        function detectPattern(originalLine, correctedLine) {
+            // Simple pattern detection
+            if (originalLine.includes('0000') && correctedLine.includes('0000')) {
+                // Field mapping pattern
+                return {
+                    type: 'field_mapping',
+                    description: `Field mapping correction: "${originalLine.trim()}" → "${correctedLine.trim()}"`
+                };
+            } else if (originalLine.includes('TBLA') && correctedLine.includes('TBLA')) {
+                // Table reference pattern
+                return {
+                    type: 'table_reference',
+                    description: `Table reference correction: "${originalLine.trim()}" → "${correctedLine.trim()}"`
+                };
+            } else {
+                // General text pattern
+                return {
+                    type: 'text_correction',
+                    description: `Text correction: "${originalLine.trim()}" → "${correctedLine.trim()}"`
+                };
+            }
+        }
+        
+        function showLearningSummary(prompt, summary, original, corrected) {
+            prompt.innerHTML = `
+                <div class="prompt-content">
+                    <h4>📊 Learning Summary</h4>
+                    <p>I analyzed your changes and found the following patterns:</p>
+                    
+                    <div class="learning-stats">
+                        <strong>Change Statistics:</strong><br>
+                        • Lines changed: ${summary.linesChanged}<br>
+                        • Lines added: ${summary.linesAdded}<br>
+                        • Lines removed: ${summary.linesRemoved}<br>
+                        • Total changes: ${summary.totalChanges}
+                    </div>
+                    
+                    <div class="correction-preview">
+                        <strong>Detected Patterns:</strong><br>
+                        ${summary.patterns.length === 0 ? 
+                            'No specific patterns detected.' : 
+                            summary.patterns.map(p => `• ${p.description}`).join('<br>')
+                        }
+                    </div>
+                    
+                    <div class="correction-preview">
+                        <strong>What I will learn:</strong><br>
+                        • How to improve Excel conversion output formatting<br>
+                        • Your preferred field mapping corrections<br>
+                        • Pattern-based text transformations<br>
+                        • Context: Excel converter with ${summary.totalChanges} modifications
+                    </div>
+                    
+                    <div class="prompt-actions">
+                        <button class="btn-primary" onclick="confirmLearning(this)">
+                            ✅ Confirm - Teach me these patterns
+                        </button>
+                        <button class="btn-secondary" onclick="declineLearning(this)">
+                            ❌ Cancel - Don't learn from this
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function confirmLearning(buttonElement) {
+            const prompt = buttonElement.closest('.learning-prompt');
+            const learnBtn = document.getElementById('learnBtn');
+            
+            try {
+                // Show learning in progress
+                showLearningProgress(prompt);
+                
+                // Use stored original and current content
+                const original = originalContentForEdit;
+                const corrected = currentContent;
+                
+                // Send to learning system
+                const response = await fetch('/api/learn-from-edit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        original_output: original,
+                        corrected_output: corrected,
+                        learning_context: {
+                            source: 'excel_converter_pencil_edit',
+                            timestamp: new Date().toISOString(),
+                            file_type: 'excel_conversion',
+                            edit_method: 'git_diff_style'
+                        }
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showLearningSuccess(prompt, result);
+                    // Hide learn button after successful learning
+                    learnBtn.classList.remove('show');
+                    hasUnsavedChanges = false;
+                } else {
+                    showLearningError(prompt, result.error);
+                }
+                
+            } catch (error) {
+                showLearningError(prompt, error.message);
+                console.error('Learning error:', error);
+            }
+        }
+        
+        function showLearningProgress(prompt) {
+            prompt.innerHTML = `
+                <div class="prompt-content">
+                    <div class="learning-progress">
+                        <div class="spinner"></div>
+                        <p>🧠 Learning from your correction...</p>
+                        <p><small>This will help improve future Excel conversions</small></p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showLearningSuccess(prompt, result) {
+            prompt.innerHTML = `
+                <div class="prompt-content">
+                    <div class="learning-success">
+                        <h4>✅ Successfully learned!</h4>
+                        <p>I'll remember this pattern for future Excel conversions.</p>
+                        <div class="learning-stats">
+                            <strong>Learning Details:</strong><br>
+                            Confidence: ${Math.round(result.confidence * 100)}%<br>
+                            Pattern ID: ${result.pattern_id}<br>
+                            <small>This learning will be applied to similar Excel conversions in the future.</small>
+                        </div>
+                        <button class="btn-primary" onclick="closeLearningPrompt(this)">Close</button>
+                    </div>
+                </div>
+            `;
+            
+            // Auto-close after 4 seconds
+            setTimeout(() => {
+                closeLearningPrompt(prompt.querySelector('button'));
+            }, 4000);
+        }
+        
+        function showLearningError(prompt, error) {
+            prompt.innerHTML = `
+                <div class="prompt-content">
+                    <div class="learning-error">
+                        <h4>❌ Learning Failed</h4>
+                        <p>Sorry, I couldn't learn from this correction.</p>
+                        <div class="error-details">
+                            <small>Error: ${error}</small>
+                        </div>
+                        <button class="btn-secondary" onclick="closeLearningPrompt(this)">Close</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function declineLearning(buttonElement) {
+            const learnBtn = document.getElementById('learnBtn');
+            learnBtn.classList.remove('show');
+            hasUnsavedChanges = false;
+            showMessage('Edit saved without learning.', 'success');
+            closeLearningPrompt(buttonElement);
+        }
+        
+        function saveDraftOnly(corrected, buttonElement) {
+            showMessage('Changes saved as draft only.', 'success');
+            closeLearningPrompt(buttonElement);
+        }
+        
+        function closeLearningPrompt(buttonElement) {
+            const prompt = buttonElement.closest('.learning-prompt');
+            if (prompt) {
+                prompt.remove();
+            }
+        }
+        
+        function showLearningModal() {
+            if (!hasUnsavedChanges || !originalContentForEdit) {
+                showError('No changes to learn from. Please edit the output first.');
+                return;
+            }
+            
+            const corrected = currentContent;
+            const diffHtml = generateGitStyleDiff(originalContentForEdit, corrected);
+            
+            promptForLearningWithDiff(originalContentForEdit, corrected, diffHtml);
+        }
+        
+        function generateGitStyleDiff(original, corrected) {
+            const originalLines = original.split('\n');
+            const correctedLines = corrected.split('\n');
+            
+            // Simple line-by-line diff algorithm
+            const diff = [];
+            const maxLines = Math.max(originalLines.length, correctedLines.length);
+            
+            for (let i = 0; i < maxLines; i++) {
+                const originalLine = originalLines[i] || '';
+                const correctedLine = correctedLines[i] || '';
+                
+                if (originalLine !== correctedLine) {
+                    // Add context lines before the change
+                    if (i > 0 && diff.length === 0) {
+                        const contextLine = originalLines[i - 1] || '';
+                        diff.push({
+                            type: 'context',
+                            lineNum: i,
+                            content: contextLine
+                        });
+                    }
+                    
+                    // Add removed line
+                    if (originalLine && originalLine !== correctedLine) {
+                        diff.push({
+                            type: 'removed',
+                            lineNum: i + 1,
+                            content: originalLine
+                        });
+                    }
+                    
+                    // Add added line
+                    if (correctedLine && originalLine !== correctedLine) {
+                        diff.push({
+                            type: 'added',
+                            lineNum: i + 1,
+                            content: correctedLine
+                        });
+                    }
+                    
+                    // Add context lines after the change
+                    if (i < maxLines - 1) {
+                        const nextLine = correctedLines[i + 1] || originalLines[i + 1] || '';
+                        if (nextLine) {
+                            diff.push({
+                                type: 'context',
+                                lineNum: i + 2,
+                                content: nextLine
+                            });
+                        }
+                    }
+                }
+            }
+            
+            // Generate HTML for diff
+            let diffHtml = '<div class="diff-container">';
+            diffHtml += '<div class="diff-header">Changes Made (Git-style diff)</div>';
+            
+            if (diff.length === 0) {
+                diffHtml += '<div class="diff-line diff-line-context">No line-level changes detected</div>';
+            } else {
+                diff.forEach(line => {
+                    const lineClass = `diff-line-${line.type}`;
+                    const prefix = line.type === 'removed' ? '- ' : line.type === 'added' ? '+ ' : '  ';
+                    diffHtml += `<div class="diff-line ${lineClass}">`;
+                    diffHtml += `<span class="diff-line-number">${line.lineNum}</span>`;
+                    diffHtml += `${prefix}${escapeHtml(line.content)}`;
+                    diffHtml += '</div>';
+                });
+            }
+            
+            diffHtml += '</div>';
+            return diffHtml;
+        }
+
+        // Global variable to store temp path for prefix conversion
+        let currentTempPath = null;
+
+        function showPrefixConfirmation(data) {
+            const prefix = data.prefix;
+            const columnName = data.column_name;
+            currentTempPath = data.temp_path;
+            currentFilename = data.filename;
+
+            // Create confirmation dialog
+            const dialog = document.createElement('div');
+            dialog.className = 'learning-prompt'; // Reuse the learning prompt styles
+            dialog.innerHTML = `
+                <div class="prompt-content">
+                    <h3>🔍 Prefix Detected</h3>
+                    <p>I detected a prefix <strong>"${prefix}"</strong> in the column header:</p>
+                    <p><code>"${columnName}"</code></p>
+                    <p>Would you like to apply this prefix to all field names in the output?</p>
+                    <div class="prompt-actions">
+                        <button class="btn-primary" onclick="convertWithPrefix(true)">
+                            ✅ Yes, apply "${prefix}-" prefix
+                        </button>
+                        <button class="btn-secondary" onclick="convertWithPrefix(false)">
+                            ❌ No, keep field names as-is
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(dialog);
+        }
+
+        function convertWithPrefix(applyPrefix) {
+            // Remove the dialog
+            const dialog = document.querySelector('.learning-prompt');
+            if (dialog) {
+                dialog.remove();
+            }
+            
+            // Check if we have the temp path
+            if (!currentTempPath) {
+                showError('File path not found. Please try uploading again.');
+                return;
+            }
+            
+            // Show loading
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Converting...';
+            
+            // Get selected mode
+            const selectedMode = document.querySelector('input[name="fileType"]:checked').value;
+            
+            fetch('/convert_with_prefix', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    temp_path: currentTempPath,
+                    apply_prefix: applyPrefix,
+                    mode: selectedMode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+
+                if (data.success) {
+                    showPreview(data.preview, currentFilename, data.message);
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Convert File';
+                showError('Conversion failed: ' + error.message);
             });
         }
     </script>
