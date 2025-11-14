@@ -1,0 +1,207 @@
+═══════════════════════════════════════════════════════════════════════════════
+            GIT BRANCHING STRATEGY - CUSTOMER SPECIFIC HOTFIXES
+═══════════════════════════════════════════════════════════════════════════════
+
+TIMELINE VIEW:
+══════════════
+
+    MAIN BRANCH (Ongoing Development)
+    ═════════════════════════════════════════════════════════════════════►
+         │         │         │                  │         │         │
+         │         │         │                  │         │         │
+        v9.0     v10.0     v11.0              v12.0     v13.0     v14.0
+      (Sep)     (Oct)     (Nov)              (Dec)     (Jan)     (Feb)
+         │         │         │                  │         │         │
+         │         │         │                  │         │         │
+         │         │         │                  │         │         │
+         │         ▼         │                  │         │         │
+         │    ┌─────────────────────┐           │         │         │
+         │    │  CUSTOMER FREEZES   │           │         │         │
+         │    │   ON v10.0 RELEASE  │           │         │         │
+         │    └──────────┬──────────┘           │         │         │
+         │               │                      │         │         │
+         │               ▼                      │         │         │
+         │    ┌─────────────────────┐           │         │         │
+         │    │  release/v10.0      │           │         │         │
+         │    │  (Long-term branch) │           │         │         │
+         │    └──────────┬──────────┘           │         │         │
+         │               │                      │         │         │
+         │               │ ◄─── CUSTOMER        │         │         │
+         │               │      USES THIS       │         │         │
+         │               │                      │         │         │
+         │               │                      │         │         │
+         │         ┌─────▼─────────┐            │         │         │
+         │         │  BUG FOUND!   │            │         │         │
+         │         │  Need Fix     │            │         │         │
+         │         └─────┬─────────┘            │         │         │
+         │               │                      │         │         │
+         │               ▼                      │         │         │
+         │    ┌─────────────────────────────┐   │         │         │
+         │    │ hotfix/customer-v10.0-fix1  │   │         │         │
+         │    │                             │   │         │         │
+         │    │  1. Create branch           │   │         │         │
+         │    │  2. Make fix                │   │         │         │
+         │    │  3. Test thoroughly         │   │         │         │
+         │    │  4. Code review             │   │         │         │
+         │    │  5. Merge to release/v10.0  │   │         │         │
+         │    └──────────┬──────────────────┘   │         │         │
+         │               │                      │         │         │
+         │               ▼                      │         │         │
+         │    ┌─────────────────────┐           │         │         │
+         │    │  release/v10.0      │           │         │         │
+         │    │  (Updated)          │           │         │         │
+         │    └──────────┬──────────┘           │         │         │
+         │               │                      │         │         │
+         │               ▼                      │         │         │
+         │        ┌─────────────┐               │         │         │
+         │        │  v10.0.1    │               │         │         │
+         │        │  (Tag)      │               │         │         │
+         │        └──────┬──────┘               │         │         │
+         │               │                      │         │         │
+         │               ▼                      │         │         │
+         │     ┌──────────────────┐             │         │         │
+         │     │ DEPLOY TO        │             │         │         │
+         │     │ CUSTOMER         │             │         │         │
+         │     └──────────────────┘             │         │         │
+         │                                      │         │         │
+         │     (Customer continues on v10.0.1)  │         │         │
+         │     (Main branch continues with      │         │         │
+         │      new features in v11, v12, etc.) │         │         │
+         │                                      │         │         │
+
+
+MULTI-CUSTOMER SCENARIO:
+════════════════════════
+
+    MAIN BRANCH
+    ══════════════════════════════════════════════════════════════►
+         │         │         │         │         │         │
+        v9.0     v10.0     v11.0     v12.0     v13.0     v14.0
+         │         │         │         │         │         │
+         │         │         │         │         │         │
+         │         └─────────┼─────────┼─────────┘         │
+         │                   │         │                   │
+         │                   │         │                   │
+         ▼                   ▼         ▼                   ▼
+    ┌────────────┐    ┌────────────┐ ┌────────────┐  ┌────────────┐
+    │release/v9.0│    │release/    │ │release/    │  │release/    │
+    │            │    │  v10.0     │ │  v11.0     │  │  v13.0     │
+    │Customer D  │    │Customer A  │ │Customer B  │  │Customer C  │
+    └─────┬──────┘    └─────┬──────┘ └─────┬──────┘  └─────┬──────┘
+          │                 │              │               │
+          ▼                 ▼              ▼               ▼
+       v9.0.1           v10.0.1        v11.0.1         v13.0.1
+       v9.0.2           v10.0.2        v11.0.2         
+       (hotfixes)       (hotfixes)     (hotfixes)      (hotfixes)
+
+
+BRANCH LIFECYCLE:
+═════════════════
+
+    ┌──────────────────────────────────────────────────────────┐
+    │                    MAIN BRANCH                           │
+    │              (Active Development)                        │
+    └────────────────────┬─────────────────────────────────────┘
+                         │
+                         │ Monthly Release
+                         ▼
+                    ┌─────────┐
+                    │  v10.0  │ ◄─── Git Tag
+                    │ (Tag)   │
+                    └────┬────┘
+                         │
+                         │ Customer requests to freeze
+                         ▼
+            ┌────────────────────────────┐
+            │    release/v10.0           │ ◄─── Long-term branch
+            │  (Customer-specific)       │
+            └────────────┬───────────────┘
+                         │
+                         │ Bug reported
+                         ▼
+            ┌────────────────────────────┐
+            │ hotfix/customer-v10.0-fix1 │ ◄─── Hotfix branch
+            │                            │
+            │  • Developer makes fix     │
+            │  • Writes tests            │
+            │  • Creates Merge Request   │
+            └────────────┬───────────────┘
+                         │
+                         │ After review & CI passes
+                         ▼
+            ┌────────────────────────────┐
+            │    release/v10.0           │
+            │    (Merge hotfix)          │
+            └────────────┬───────────────┘
+                         │
+                         ▼
+                    ┌─────────┐
+                    │ v10.0.1 │ ◄─── Patch version tag
+                    │ (Tag)   │
+                    └────┬────┘
+                         │
+                         ▼
+                 ┌───────────────┐
+                 │  DEPLOY TO    │
+                 │  CUSTOMER     │
+                 └───────────────┘
+
+
+GIT COMMANDS QUICK REFERENCE:
+═════════════════════════════
+
+    STEP 1: Create release branch for customer
+    ─────────────────────────────────────────────
+    $ git checkout v10.0
+    $ git checkout -b release/v10.0
+    $ git push origin release/v10.0
+
+    STEP 2: Create hotfix branch
+    ─────────────────────────────
+    $ git checkout release/v10.0
+    $ git checkout -b hotfix/customer-v10.0-fix1
+
+    STEP 3: Make fix and push
+    ──────────────────────────
+    $ # Make your code changes
+    $ git add .
+    $ git commit -m "Fix: [Description]"
+    $ git push origin hotfix/customer-v10.0-fix1
+
+    STEP 4: Create Merge Request in GitLab UI
+    ──────────────────────────────────────────
+    Source: hotfix/customer-v10.0-fix1
+    Target: release/v10.0
+
+    STEP 5: After merge, tag and deploy
+    ────────────────────────────────────
+    $ git checkout release/v10.0
+    $ git pull
+    $ git tag -a v10.0.1 -m "Hotfix for customer"
+    $ git push origin v10.0.1
+    $ # Deploy v10.0.1 to customer
+
+
+ADVANTAGES:
+═══════════
+
+    ✓ Customer stays on stable v10.0 (no unwanted features)
+    ✓ Hotfixes are isolated and tested
+    ✓ Main branch continues with new development
+    ✓ Can support multiple customers on different versions
+    ✓ Clear audit trail and version history
+    ✓ Minimal risk of introducing new bugs
+    ✓ Easy rollback if needed
+
+
+KEY POINTS:
+═══════════
+
+    1. Main branch = Ongoing development (v11.0, v12.0, etc.)
+    2. release/v10.0 = Frozen version for customer
+    3. hotfix/* branches = Individual fixes
+    4. v10.0.1, v10.0.2 = Patch versions (hotfixes)
+    5. Customer gets only the fixes they need
+    6. No forced upgrades
+
+═══════════════════════════════════════════════════════════════════════════════
